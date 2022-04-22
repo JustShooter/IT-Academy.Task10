@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,10 @@ public class Task {
     @Column(name = "task_title")
     private String title;
 
-    @ManyToMany
-    @JoinTable(name = "student_task",
-            joinColumns =@JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> tasks = new HashSet<Student>();
+//    @ManyToMany
+//    @JoinTable(name = "student_task",
+//            joinColumns =@JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+//    private Set<Student> tasks = new HashSet<Student>();
 
     @ManyToMany
     @JoinTable(name = "report_task",

@@ -4,27 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mentor")
-public class Mentor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "mentor_name")
-    private String name;
-
-    @Column(name = "mentor_surname")
-    private String surname;
+@DiscriminatorValue("M")
+public class Mentor extends User {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "admin_id")

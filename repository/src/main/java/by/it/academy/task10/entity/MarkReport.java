@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "report")
-public class MarkReport {
+public class MarkReport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
