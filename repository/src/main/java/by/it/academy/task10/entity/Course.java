@@ -1,19 +1,18 @@
 package by.it.academy.task10.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "course")
 public class Course implements Serializable {
@@ -25,9 +24,8 @@ public class Course implements Serializable {
     @Column(name = "course_title")
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_id")
-    private Admin adminCourse;
+    @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
+    private Set<Task> tasks = new HashSet<Task>();
 
     @OneToOne(mappedBy = "courseMentor")
     private Mentor mentorCourse;
