@@ -1,16 +1,15 @@
 package by.it.academy.task10.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +30,7 @@ public class MarkReport implements Serializable {
     @ManyToMany
     @JoinTable(name = "student_report",
             joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> reports = new HashSet<Student>();
+    private Set<Student> students = new HashSet<Student>();
 
     @ManyToMany
     @JoinTable(name = "task_report",

@@ -1,11 +1,6 @@
 package by.it.academy.task10.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -15,16 +10,16 @@ import java.util.Set;
 
 @SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 @DiscriminatorValue("A")
 public class Admin extends User {
 
-    @OneToMany(mappedBy = "adminCourse", fetch = FetchType.LAZY)
-    private Set<Course> courses = new HashSet<Course>();
-
-    @OneToMany(mappedBy = "adminMentor", fetch = FetchType.LAZY)
-    private Set<Mentor> mentors = new HashSet<Mentor>();
+//    @OneToMany(mappedBy = "adminCourse", fetch = FetchType.LAZY)
+//    private Set<Course> courses = new HashSet<Course>();
+//
+//    @OneToMany(mappedBy = "adminMentor", fetch = FetchType.LAZY)
+//    private Set<Mentor> mentors = new HashSet<Mentor>();
 }
