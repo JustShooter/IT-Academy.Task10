@@ -2,18 +2,24 @@ package by.it.academy.task10.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+
 @Builder
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "task")
@@ -31,8 +37,22 @@ public class Task implements Serializable {
 //            joinColumns =@JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
 //    private Set<Student> tasks = new HashSet<Student>();
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "report_task",
-            joinColumns =@JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "report_id"))
-    private Set<MarkReport> reports = new HashSet<MarkReport>();
+            joinColumns =@JoinColumn(name = "task_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "report_id", referencedColumnName = "id"))
+    private Set<MarkReport> reports = new java.util.LinkedHashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Task task = (Task) o;
+        return id != null && Objects.equals(id, task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

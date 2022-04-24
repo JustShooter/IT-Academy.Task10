@@ -2,17 +2,23 @@ package by.it.academy.task10.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
 @Builder
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @Entity
 @Table(name = "course")
@@ -32,8 +38,22 @@ public class Course implements Serializable {
     @OneToOne(mappedBy = "courseMentor")
     private Mentor mentorCourse;
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "course_student",
-            joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students = new HashSet<Student>();
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
+    private Set<Student> students = new java.util.LinkedHashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Course course = (Course) o;
+        return id != null && Objects.equals(id, course.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
