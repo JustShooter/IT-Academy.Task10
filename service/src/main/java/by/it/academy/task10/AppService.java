@@ -28,8 +28,10 @@ public class AppService {
 //        System.out.println(studentsOfCourse);
 //        adminService.createMentor("Pavel", "Durov");
 //        adminService.addMentorToCourse("Pavel","Durov", "Course 2");
-        mentorService.rateAndFeedbackStudentTask("John","Lennon","Task_1", "Course 2", 9, "task done");
-
+//        mentorService.rateAndFeedbackStudentTask("John","Lennon","Task_1", "Course 2", 8, "task not done");
+        System.out.println(studentService.findCoursesOfStudent("John","Lennon"));
+        System.out.println(studentService.findTasksOfCourse("Course 1"));
+        System.out.println(studentService.findReportsOfStudent("John","Lennon"));
     }
 
 }

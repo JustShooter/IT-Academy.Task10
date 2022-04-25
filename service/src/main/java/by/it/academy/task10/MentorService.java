@@ -48,20 +48,27 @@ public class MentorService {
         Task task = taskDao.findOne(idTaskFromCourse);
         Integer idMentorOfCourse = GeneralService.getIdMentorOfCourse(titleCourse);
         Mentor mentor = mentorDao.findOne(idMentorOfCourse);
-        MarkReport markReport = markReportDao.create(MarkReport.builder()
-//                    .student(student)
-                .feedback(feedback)
-                .mark(mark)
-//                    .task(task)
-//                    .mentor(mentor)
-                .build());
+        Integer idReport = GeneralService.getIdReport(nameStudent,surnameStudent,titleTask,titleCourse);
+        if (idReport == null) {
+            MarkReport markReport = MarkReport.builder()
+                    .mentor(mentor)
+                    .student(student)
+                    .task(task)
+                    .mark(mark)
+                    .feedback(feedback)
+                    .build();
 
-        markReport.setTask(task);
-        markReport.setMentor(mentor);
-        markReport.setStudent(student);
-        markReportDao.update(markReport);
-
-}
+//        markReport.setTask(task);
+//        markReport.setMentor(mentor);
+//        markReport.setStudent(student);
+            markReportDao.create(markReport);
+        } else {
+            MarkReport markReport = markReportDao.findOne(idReport);
+            markReport.setMark(mark);
+            markReport.setFeedback(feedback);
+            markReportDao.update(markReport);
+        }
+    }
 
     public Set<Student> findStudentsOfCourse(String titleCourse) throws SQLException {
         Integer idCourse = GeneralService.getIdCourse(titleCourse);

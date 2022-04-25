@@ -52,7 +52,8 @@ public class GeneralService {
     static Integer getIdMentorOfCourse(String courseTitle) {
         List<Course> allCourses = courseDao.findAll();
         Course course = allCourses.stream()
-                .filter(m -> m.getTitle().equals(courseTitle)).findAny().orElse(null);
+                .filter(m -> m.getTitle().equals(courseTitle))
+                .findAny().orElse(null);
         if (course != null) {
             return course.getMentorCourse().getId();
         } else {
@@ -72,23 +73,21 @@ public class GeneralService {
         }
     }
 
-//    static Integer getIdReport(String nameS, String surnameS,
-//                               String titleT, String titleC) throws SQLException {
-//        Integer idTaskFromCourse = getIdTaskFromCourse(titleT, titleC);
-//        Task task = taskDao.findOne(idTaskFromCourse);
-//        Integer idStudent = getIdUser(nameS, surnameS);
-//        Student student = studentDao.findOne(idStudent);
-//        List<MarkReport> allReports = markReportDao.findAll();
-//        if (allReports.size() != 0) {
-//            MarkReport markReport = allReports.stream()
-//                    .filter(r -> r.getStudent().equals(student) && r.getTask().equals(task))
-//                    .findAny().orElse(null);
-//            return markReport.getId();
-//        } else {
-//            return null;
-//        }
-//
-//
-//    }
+    static Integer getIdReport(String nameS, String surnameS,
+                               String titleT, String titleC) throws SQLException {
+        Integer idTaskFromCourse = getIdTaskFromCourse(titleT, titleC);
+        Task task = taskDao.findOne(idTaskFromCourse);
+        Integer idStudent = getIdUser(nameS, surnameS);
+        Student student = studentDao.findOne(idStudent);
+        List<MarkReport> allReports = markReportDao.findAll();
+        if (allReports.size() != 0) {
+            MarkReport markReport = allReports.stream()
+                    .filter(r -> r.getStudent().equals(student) && r.getTask().equals(task))
+                    .findAny().orElse(null);
+            return markReport.getId();
+        } else {
+            return null;
+        }
+    }
 
 }

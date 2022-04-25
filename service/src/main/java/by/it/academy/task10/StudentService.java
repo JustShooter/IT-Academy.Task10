@@ -7,20 +7,21 @@ import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.Task;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Set;
 
 public class StudentService {
-    private Dao<Student> studentDao = new Dao<>(Student.class);
-    private Dao<Course> courseDao = new Dao<>(Course.class);
+    private final Dao<Student> studentDao = new Dao<>(Student.class);
+    private final Dao<Course> courseDao = new Dao<>(Course.class);
 
     public Set<Course> findCoursesOfStudent(String nameStudent, String surnameStudent) throws SQLException {
         Integer idStudent = GeneralService.getIdUser(nameStudent, surnameStudent);
         Student student = studentDao.findOne(idStudent);
         Set<Course> courses = student.getCourses();
-        if (courses.size() != 0){
+        if (!courses.isEmpty()){
             return courses;
         }else {
-            return null;
+            return Collections.emptySet();
         }
 
     }
@@ -29,10 +30,10 @@ public class StudentService {
         Integer idCourse = GeneralService.getIdCourse(titleCourse);
         Course course = courseDao.findOne(idCourse);
         Set<Task> tasks = course.getTasks();
-        if (tasks.size() != 0){
+        if (!tasks.isEmpty()){
             return tasks;
         }else {
-            return null;
+            return Collections.emptySet();
         }
 
     }
@@ -41,10 +42,10 @@ public class StudentService {
         Integer idStudent = GeneralService.getIdUser(nameStudent, surnameOfStudent);
         Student student = studentDao.findOne(idStudent);
         Set<MarkReport> reports = student.getMarkReports();
-        if (reports.size() != 0){
+        if (!reports.isEmpty()){
             return reports;
         }else {
-            return null;
+            return Collections.emptySet();
         }
     }
 

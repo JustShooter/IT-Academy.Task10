@@ -7,23 +7,25 @@ import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.User;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AdminService {
-    private Dao<Student> studentDao = new Dao<>(Student.class);
-    private Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
-    private Dao<Course> courseDao = new Dao<>(Course.class);
+    private final Dao<Student> studentDao = new Dao<>(Student.class);
+    private final Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
+    private final Dao<Course> courseDao = new Dao<>(Course.class);
 
 
     public void createStudent(String name, String surname) {
         Integer idUser = GeneralService.getIdUser(name, surname);
         if (idUser == null) {
-            Student student = studentDao.create(Student.builder()
+            studentDao.create(Student.builder()
                     .name(name)
                     .surname(surname)
                     .role("Student")
                     .build());
-        }else {
+        } else {
             System.out.println("Student already exist");
         }
     }
@@ -38,7 +40,14 @@ public class AdminService {
         Student student = studentDao.findOne(idStudent);
         Integer idCourse = GeneralService.getIdCourse(title);
         Course course = courseDao.findOne(idCourse);
-        student.getCourses().add(course);
+        Set<Course> courseSet = student.getCourses();
+        if (courseSet != null) {
+            student.getCourses().add(course);
+        } else {
+            Set<Course> set = new HashSet<>();
+            set.add(course);
+            student.setCourses(set);
+        }
         studentDao.update(student);
     }
 
@@ -81,7 +90,7 @@ public class AdminService {
         Mentor mentor = mentorDao.findOne(idMentor);
         Integer idCourse = GeneralService.getIdCourse(title);
         Course course = courseDao.findOne(idCourse);
-        if (course.getMentorCourse() == null){
+        if (course.getMentorCourse() == null) {
             course.setMentorCourse(mentor);
             mentor.setCourseMentor(course);
             mentorDao.update(mentor);
