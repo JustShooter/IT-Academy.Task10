@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class AdminService {
-    GeneralService generalService;
+    GeneralService generalService = new GeneralService();
     Dao<Student> studentDao = new Dao<>(Student.class);
     Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     Dao<Course> courseDao = new Dao<>(Course.class);
