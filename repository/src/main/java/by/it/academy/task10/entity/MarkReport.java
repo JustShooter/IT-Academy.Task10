@@ -1,13 +1,18 @@
 package by.it.academy.task10.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
-@EqualsAndHashCode
+
 @Getter
 @Setter
 @Builder
@@ -27,18 +32,38 @@ public class MarkReport implements Serializable {
     @Column(name = "feedback")
     private String feedback;
 
-    @ManyToMany
-    @JoinTable(name = "student_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students = new HashSet<Student>();
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-    @ManyToMany
-    @JoinTable(name = "task_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    private Set<Task> tasks = new HashSet<Task>();
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "task_id")
+    private Task task;
 
-    @ManyToMany
-    @JoinTable(name = "mentor_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "mentor_id"))
-    private Set<Mentor> mentors = new HashSet<Mentor>();
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        MarkReport that = (MarkReport) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "task = " + task + ", " +
+                "mark = " + mark + ", " +
+                "feedback = " + feedback + ", " +
+                "student = " + student + ", " +
+                "mentor = " + mentor + ")";
+    }
 }
