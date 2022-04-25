@@ -1,11 +1,7 @@
 package by.it.academy.task10.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -14,11 +10,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Builder
-@NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@SuperBuilder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "course")
@@ -31,18 +26,23 @@ public class Course implements Serializable {
     @Column(name = "course_title")
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_id")
-    private Admin adminCourse;
+    @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
+    private Set<Task> tasks = new HashSet<Task>();
 
     @OneToOne(mappedBy = "courseMentor")
     private Mentor mentorCourse;
 
-    @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "course_student",
-            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
-    private Set<Student> students = new java.util.LinkedHashSet<>();
+            joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private Set<Student> students = new HashSet<Student>();
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
