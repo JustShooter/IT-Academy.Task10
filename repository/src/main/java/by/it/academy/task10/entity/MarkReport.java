@@ -1,6 +1,7 @@
 package by.it.academy.task10.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +11,8 @@ import java.util.Set;
 @EqualsAndHashCode
 @Getter
 @Setter
-@Builder
+@ToString
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,18 +29,15 @@ public class MarkReport implements Serializable {
     @Column(name = "feedback")
     private String feedback;
 
-    @ManyToMany
-    @JoinTable(name = "student_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students = new HashSet<Student>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-    @ManyToMany
-    @JoinTable(name = "task_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    private Set<Task> tasks = new HashSet<Task>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
+    private Task task;
 
-    @ManyToMany
-    @JoinTable(name = "mentor_report",
-            joinColumns =@JoinColumn(name = "report_id"), inverseJoinColumns = @JoinColumn(name = "mentor_id"))
-    private Set<Mentor> mentors = new HashSet<Mentor>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
 }

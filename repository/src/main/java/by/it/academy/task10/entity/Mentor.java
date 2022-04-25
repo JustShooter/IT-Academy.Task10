@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode
 @Getter
 @Setter
 @SuperBuilder
@@ -21,8 +20,6 @@ public class Mentor extends User {
     @JoinColumn(name = "course_id")
     private Course courseMentor;
 
-    @ManyToMany
-    @JoinTable(name = "mentor_report",
-            joinColumns =@JoinColumn(name = "mentor_id"), inverseJoinColumns = @JoinColumn(name = "report_id"))
-    private Set<MarkReport> reports = new HashSet<MarkReport>();
+    @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
+    private Set<MarkReport> markReports = new HashSet<MarkReport>();
 }

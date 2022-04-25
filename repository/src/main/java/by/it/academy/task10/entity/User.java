@@ -33,4 +33,11 @@ public abstract class User implements Serializable {
     @Column(name = "role")
     private String role;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

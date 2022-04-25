@@ -11,7 +11,8 @@ import java.util.Set;
 @EqualsAndHashCode
 @Getter
 @Setter
-@Builder
+@ToString
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,8 +30,6 @@ public class Task implements Serializable {
     @JoinColumn(name = "course_id")
     private Course taskCourse;
 
-    @ManyToMany
-    @JoinTable(name = "report_task",
-            joinColumns =@JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "report_id"))
-    private Set<MarkReport> reports = new HashSet<MarkReport>();
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    private Set<MarkReport> markReports = new HashSet<MarkReport>();
 }
