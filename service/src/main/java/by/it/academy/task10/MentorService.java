@@ -6,9 +6,8 @@ import by.it.academy.task10.entity.*;
 import java.sql.SQLException;
 import java.util.Set;
 
-public class MentorService{
+public class MentorService {
 
-    GeneralService generalService = new GeneralService();
     private Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     private Dao<Course> courseDao = new Dao<>(Course.class);
     private Dao<Student> studentDao = new Dao<>(Student.class);
@@ -17,58 +16,67 @@ public class MentorService{
 
 
     public void createTask(String titleCourse, String titleTask) throws SQLException {
-        Integer idCourse = generalService.getIdCourse(titleCourse);
+        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse);
         Course course = courseDao.findOne(idCourse);
-        Task task = taskDao.create(Task.builder()
-                .title(titleTask)
-                .taskCourse(course)
-                .build());
-        Set<Task> tasks = course.getTasks();
-        if (tasks != null) {
-            tasks.add(task);
+        if (idTaskFromCourse == null) {
+            Task task = taskDao.create(Task.builder()
+                    .title(titleTask)
+                    .build());
+            task.setTaskCourse(course);
+            taskDao.update(task);
         } else {
-            tasks = Set.of(task);
+            System.out.println("Task already exist");
         }
-        course.setTasks(tasks);
-        courseDao.update(course);
+
     }
 
     public void deleteTask(String titleTask, String titleCourse) throws SQLException {
-        Integer idTaskFromCourse = generalService.getIdTaskFromCourse(titleTask, titleCourse);
+        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse);
         Task one = taskDao.findOne(idTaskFromCourse);
         taskDao.delete(one);
 
     }
 
     public void rateAndFeedbackStudentTask(String nameStudent, String surnameStudent,
-                                           String nameMentor, String surnameMentor, String titleTask,
+                                           String titleTask, String titleCourse,
                                            Integer mark, String feedback) throws SQLException {
 
-        Integer idStudent = generalService.getIdUser(nameStudent, surnameStudent);
-        Integer idMentor = generalService.getIdUser(nameMentor, surnameMentor);
-        Integer idTask = generalService.getIdTask(titleTask);
-        Task task = taskDao.findOne(idTask);
-        Mentor mentor = mentorDao.findOne(idMentor);
+        Integer idStudent = GeneralService.getIdUser(nameStudent, surnameStudent);
         Student student = studentDao.findOne(idStudent);
-        MarkReport markReport = markReportDao.create(MarkReport.builder()
-                .feedback(feedback)
-                .mark(mark)
-                .tasks(Set.of(task))
-                .mentors(Set.of(mentor))
-                .students(Set.of(student))
-                .build());
+        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse);
+        Task task = taskDao.findOne(idTaskFromCourse);
+        Integer idMentorOfCourse = GeneralService.getIdMentorOfCourse(titleCourse);
+        Mentor mentor = mentorDao.findOne(idMentorOfCourse);
+        Integer idReport = GeneralService.getIdReport(nameStudent,surnameStudent,titleTask,titleCourse);
+        if (idReport == null) {
+            MarkReport markReport = MarkReport.builder()
+                    .mentor(mentor)
+                    .student(student)
+                    .task(task)
+                    .mark(mark)
+                    .feedback(feedback)
+                    .build();
 
-        markReportDao.update(markReport);
-
+//        markReport.setTask(task);
+//        markReport.setMentor(mentor);
+//        markReport.setStudent(student);
+            markReportDao.create(markReport);
+        } else {
+            MarkReport markReport = markReportDao.findOne(idReport);
+            markReport.setMark(mark);
+            markReport.setFeedback(feedback);
+            markReportDao.update(markReport);
+        }
     }
 
     public Set<Student> findStudentsOfCourse(String titleCourse) throws SQLException {
-        Integer idCourse = generalService.getIdCourse(titleCourse);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse);
         Course course = courseDao.findOne(idCourse);
         Set<Student> students = course.getStudents();
-        if (students.size() != 0){
+        if (students.size() != 0) {
             return students;
-        }else {
+        } else {
             return null;
         }
 

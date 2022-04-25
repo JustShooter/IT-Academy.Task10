@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode
 @Getter
 @Setter
 @ToString
@@ -24,10 +23,7 @@ public class Student extends User {
             joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Set<Course> courses = new HashSet<Course>();
 
-
-    @ManyToMany
-    @JoinTable(name = "student_report",
-            joinColumns =@JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "report_id"))
-    private Set<MarkReport> reports = new HashSet<MarkReport>();
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private Set<MarkReport> markReports = new HashSet<MarkReport>();
 
 }
