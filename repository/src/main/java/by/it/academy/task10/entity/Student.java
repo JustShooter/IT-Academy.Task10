@@ -11,6 +11,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

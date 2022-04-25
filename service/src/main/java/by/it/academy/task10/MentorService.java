@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class MentorService{
 
-    GeneralService generalService;
+    GeneralService generalService = new GeneralService();
     private Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     private Dao<Course> courseDao = new Dao<>(Course.class);
     private Dao<Student> studentDao = new Dao<>(Student.class);
@@ -17,18 +17,19 @@ public class MentorService{
 
 
     public void createTask(String titleCourse, String titleTask) throws SQLException {
-        Integer idTask = generalService.getIdTask(titleTask);
         Integer idCourse = generalService.getIdCourse(titleCourse);
         Course course = courseDao.findOne(idCourse);
         Task task = taskDao.create(Task.builder()
                 .title(titleTask)
                 .taskCourse(course)
                 .build());
-
         Set<Task> tasks = course.getTasks();
-        tasks.add(task);
+        if (tasks != null) {
+            tasks.add(task);
+        } else {
+            tasks = Set.of(task);
+        }
         course.setTasks(tasks);
-        taskDao.update(task);
         courseDao.update(course);
     }
 

@@ -28,7 +28,8 @@ public class GeneralService {
 
     Integer getIdTask(String taskTitle){
         List<Task> allTasks = taskDao.findAll();
-        Task task = allTasks.stream().filter(t -> t.getTitle().equals(taskTitle))
+        Task task = allTasks.stream()
+                .filter(t -> t.getTitle().equals(taskTitle))
                 .findAny().orElse(null);
         if (task != null){
             return task.getId();
@@ -39,7 +40,8 @@ public class GeneralService {
 
     Integer getIdCourse(String courseTitle){
         List<Course> allCourses = courseDao.findAll();
-        Course course = allCourses.stream().filter(c -> c.getTitle().equals(courseTitle))
+        Course course = allCourses.stream()
+                .filter(c -> c.getTitle().equals(courseTitle))
                 .findAny().orElse(null);
         if (course != null){
             return course.getId();
@@ -51,8 +53,10 @@ public class GeneralService {
     Integer getIdTaskFromCourse(String titleT, String titleC){
         List<Task> allTasks = taskDao.findAll();
         List<Course> allCourses = courseDao.findAll();
-        Course course = allCourses.stream().filter(c -> c.getTitle().equals(titleC)).findFirst().orElse(null);
-        Task task = allTasks.stream().filter(t -> t.getTaskCourse().equals(course)).findAny().orElse(null);
+        Course course = allCourses.stream().
+                filter(c -> c.getTitle().equals(titleC)).findFirst().orElse(null);
+        Task task = allTasks.stream().
+                filter(t -> t.getTaskCourse().equals(course)).findAny().orElse(null);
         if (task != null){
             return task.getId();
         }else {

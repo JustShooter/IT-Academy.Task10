@@ -16,9 +16,9 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/jd2task10?createDatabaseIfNotExist=true"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="1234"/>
+                      value="jdbc:mysql://localhost:3306/exercise"/>
+            <property name="hibernate.connection.username" value="Strezhik"/>
+            <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.dialect.storage_engine" value="innodb"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.use_sql_comments" value="true"/>

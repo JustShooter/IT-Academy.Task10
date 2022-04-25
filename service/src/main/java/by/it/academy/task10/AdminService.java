@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class AdminService {
-    GeneralService generalService;
+    GeneralService generalService = new GeneralService();
     Dao<Student> studentDao = new Dao<>(Student.class);
     Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     Dao<Course> courseDao = new Dao<>(Course.class);
@@ -42,9 +42,14 @@ public class AdminService {
         Integer idCourse = generalService.getIdCourse(title);
         Course course = courseDao.findOne(idCourse);
         Set<Course> coursesStudent = student.getCourses();
-        coursesStudent.add(course);
+        if (coursesStudent != null) {
+            coursesStudent.add(course);
+        } else {
+            coursesStudent = Set.of(course);
+        }
         student.setCourses(coursesStudent);
         studentDao.update(student);
+
     }
 
     public boolean createMentor(String name, String surname) {
@@ -84,5 +89,16 @@ public class AdminService {
         }else {
             return null;
         }
+    }
+    public boolean addCourse(String courseTitle) {
+        if (generalService.getIdCourse(courseTitle) == null) {
+            Course course = courseDao.create(Course.builder()
+                    .title(courseTitle)
+                    .build());
+            return (course != null);
+        } else {
+            System.out.println("Course already exist!");
+        }
+        return false;
     }
 }
