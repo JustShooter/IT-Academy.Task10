@@ -1,5 +1,6 @@
 package by.it.academy.task10;
 
+import by.it.academy.task10.GeneralService;
 import by.it.academy.task10.dao.Dao;
 import by.it.academy.task10.entity.*;
 

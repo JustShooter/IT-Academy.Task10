@@ -6,9 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -28,6 +26,7 @@ public class Course implements Serializable {
 
     @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
     private Set<Task> tasks = new HashSet<Task>();
+
 
     @OneToOne(mappedBy = "courseMentor")
     private Mentor mentorCourse;

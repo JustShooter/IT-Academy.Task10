@@ -8,6 +8,7 @@ import by.it.academy.task10.entity.Task;
 
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class StudentService {
@@ -29,6 +30,7 @@ public class StudentService {
     public Set<Task> findTasksOfCourse(String titleCourse) throws SQLException {
         Integer idCourse = GeneralService.getIdCourse(titleCourse);
         Course course = courseDao.findOne(idCourse);
+//        Set<Task> tasks = course.getTasks();
         Set<Task> tasks = course.getTasks();
         if (!tasks.isEmpty()){
             return tasks;

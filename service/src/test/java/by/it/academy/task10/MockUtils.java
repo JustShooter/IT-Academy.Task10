@@ -9,6 +9,9 @@ import static by.it.academy.task10.MockConstants.*;
 
 public class MockUtils {
 
+
+
+
     public static Task createFirstTask() {
         return Task.builder()
                 .title(FIRST_TASK)
@@ -20,14 +23,14 @@ public class MockUtils {
                 .build();
     }
 
-    public static Course createCourseBiology() {
+    public static Course createCoursePython() {
         return Course.builder()
-                .title(COURSE_TITLE_BIOLOGY)
+                .title(TITTLE_PYTHON_COURSE)
                 .build();
     }
-    public static Course createCourseJava() {
+    public static Course createCourseRuby() {
         return Course.builder()
-                .title(COURSE_TITLE_JAVA)
+                .title("Ruby course")
                 .build();
     }
     public static Mentor createMentorBiology() {
@@ -45,6 +48,14 @@ public class MockUtils {
                 .build();
     }
 
+
+    public static Mentor createMentorPython() {
+        return Mentor.builder()
+                .name("Alexandr")
+                .surname("Smitt")
+                .role("Mentor")
+                .build();
+    }
     public static Student createFirstStudent() {
         return Student.builder()
                 .name(FIRST_STUDENT_NAME)

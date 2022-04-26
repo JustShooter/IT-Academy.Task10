@@ -1,10 +1,11 @@
+
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.Dao;
-import by.it.academy.task10.entity.*;
+        import by.it.academy.task10.dao.Dao;
+        import by.it.academy.task10.entity.*;
 
-import java.sql.SQLException;
-import java.util.List;
+        import java.sql.SQLException;
+        import java.util.List;
 
 public class GeneralService {
 

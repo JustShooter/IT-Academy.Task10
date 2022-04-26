@@ -6,7 +6,6 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@ToString
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor

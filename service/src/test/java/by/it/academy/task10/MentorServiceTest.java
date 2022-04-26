@@ -2,15 +2,15 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.dao.Dao;
 import by.it.academy.task10.entity.*;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
+import static by.it.academy.task10.MockConstants.*;
 import static by.it.academy.task10.MockUtils.*;
-import static by.it.academy.task10.MockUtils.createSecondStudent;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MentorServiceTest {
     GeneralService generalService;
@@ -21,53 +21,24 @@ class MentorServiceTest {
     private Dao<MarkReport> markReportDao = new Dao<>(MarkReport.class);
 
 
-    final Mentor mentorBiology = createMentorBiology();
-    final Mentor mentorJava = createMentorJava();
-
-    final Course courseBiology = createCourseBiology();
-    final Course courseJava = createCourseJava();
-
-    AdminService admin = new AdminService();
-
-
-    final Task task = createFirstTask();
-    final Task task2 = createSecondTask();
+    AdminService adminService = new AdminService();
+    MentorService mentorService = new MentorService();
 
     @Test
-    void test(){
+    void taskShouldBeCreatedTest() {
+        try {
+            mentorService.createTask(TITTLE_PYTHON_COURSE,FIRST_TASK);
+            boolean taskIsCreated = false;
+            List<Task> taskList = taskDao.findAll();
+            for (Task task : taskList){
+                taskIsCreated = true;
+            }
+            assertNotNull(GeneralService.getIdTask(FIRST_TASK));
+            assertTrue(taskIsCreated, "Task not created");
 
-        final Student firstStudent = createFirstStudent();
-        final Student secondStudent = createSecondStudent();
-
-        Student studentDao1 = admin.studentDao.create(firstStudent);
-        Student studentDao2 = admin.studentDao.create(secondStudent);
-
-
-        GeneralService generalService = new GeneralService();
-        MentorService mentorService = new MentorService();
-
-        Set<Student> studentSet = new HashSet<>();
-        studentSet.add(studentDao1);
-        studentSet.add(studentDao2);
-
-
-        courseBiology.setStudents(studentSet);
-        System.out.println(studentSet);
-
-//
-//        MentorService mentorService = new MentorService();
-//
-//
-//
-//        try {
-//            Set<Student> currentSet = mentorService.findStudentsOfCourse(courseBiology.getTitle());
-//            Assert.assertNotNull(currentSet);
-//            Assert.assertEquals("Не совпадают", currentSet,studentSet);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }
-//

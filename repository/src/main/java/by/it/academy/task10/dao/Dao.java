@@ -56,7 +56,7 @@ public class Dao<T> implements GenericDao<T> {
     }
 
     @Override
-    public void deleteById(final long entityId) throws SQLException {
+    public void deleteById(final Integer entityId) throws SQLException {
         final T entity = findOne(entityId);
         delete(entity);
     }

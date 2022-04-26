@@ -2,11 +2,20 @@ package by.it.academy.task10;
 
 public class MockConstants {
 
+    public static final String NAME_USER = "John";
+    public static final String SURNAME_USER = "Wick";
+    public static final String COURSE_TITTLE_JAVA = "Java";
+    public static final String COURSE_TITLE_PYTHON = "Python";
+
+    public static final String TITTLE_PYTHON_COURSE = "Python course";
+
+
+
     public static final String FIRST_TASK = "First task";
     public static final String SECOND_TASK = "Second task";
 
-    public static final String COURSE_TITLE_BIOLOGY = "Biology";
-    public static final String COURSE_TITLE_JAVA = "Java";
+   /* public static final String COURSE_TITLE_BIOLOGY = "Biology";
+    public static final String COURSE_TITLE_JAVA = "Java";*/
 
     public static final String MENTOR_NAME_BIOLOGY = "Olga";
     public static final String MENTOR_SURNAME_BIOLOGY = "Petrova";
