@@ -29,8 +29,9 @@ public class Course implements Serializable {
     @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
     private Set<Task> tasks = new HashSet<Task>();
 
-    @OneToOne(mappedBy = "courseMentor")
-    private Mentor mentorCourse;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
 
     @ManyToMany
     @JoinTable(name = "course_student",

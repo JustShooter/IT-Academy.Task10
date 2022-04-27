@@ -1,7 +1,7 @@
-package by.it.academy.task10.dao;
+package java.by.it.academy.task10.dao;
 
+import by.it.academy.task10.dao.Dao;
 import by.it.academy.task10.entity.Student;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;

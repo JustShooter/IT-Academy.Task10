@@ -15,10 +15,10 @@ public class AdminService {
     private final Dao<Student> studentDao = new Dao<>(Student.class);
     private final Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     private final Dao<Course> courseDao = new Dao<>(Course.class);
-
+    private final Dao<User> userDao = new Dao<User>(User.class);
 
     public void createStudent(String name, String surname) {
-        Integer idUser = GeneralService.getIdUser(name, surname);
+        Integer idUser = GeneralService.getIdUser(name, surname, userDao);
         if (idUser == null) {
             studentDao.create(Student.builder()
                     .name(name)
@@ -31,14 +31,14 @@ public class AdminService {
     }
 
     public void deleteStudent(String name, String surname) throws SQLException {
-        Integer idUser = GeneralService.getIdUser(name, surname);
+        Integer idUser = GeneralService.getIdUser(name, surname,userDao);
         studentDao.deleteById(idUser);
     }
 
     public void addStudentToCourse(String name, String surname, String title) throws SQLException {
-        Integer idStudent = GeneralService.getIdUser(name, surname);
+        Integer idStudent = GeneralService.getIdUser(name, surname,userDao);
         Student student = studentDao.findOne(idStudent);
-        Integer idCourse = GeneralService.getIdCourse(title);
+        Integer idCourse = GeneralService.getIdCourse(title,courseDao);
         Course course = courseDao.findOne(idCourse);
         Set<Course> courseSet = student.getCourses();
         if (courseSet != null) {
@@ -52,7 +52,7 @@ public class AdminService {
     }
 
     public void createMentor(String name, String surname) {
-        Integer idUser = GeneralService.getIdUser(name, surname);
+        Integer idUser = GeneralService.getIdUser(name, surname,userDao);
         if (idUser == null) {
             Mentor mentor = mentorDao.create(Mentor.builder()
                     .name(name)
@@ -65,12 +65,12 @@ public class AdminService {
     }
 
     public void deleteMentor(String name, String surname) throws SQLException {
-        Integer idMentor = GeneralService.getIdUser(name, surname);
+        Integer idMentor = GeneralService.getIdUser(name, surname,userDao);
         mentorDao.deleteById(idMentor);
     }
 
     public void createCourse(String titleCourse) {
-        Integer idCourse = GeneralService.getIdCourse(titleCourse);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse,courseDao);
         if (idCourse == null) {
             Course course = courseDao.create(Course.builder()
                     .title(titleCourse)
@@ -81,23 +81,30 @@ public class AdminService {
     }
 
     public void deleteCourse(String titleCourse) throws SQLException {
-        Integer idCourse = GeneralService.getIdCourse(titleCourse);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse,courseDao);
         courseDao.deleteById(idCourse);
     }
 
     public void addMentorToCourse(String name, String surname, String title) throws SQLException {
-        Integer idMentor = GeneralService.getIdUser(name, surname);
+        Integer idMentor = GeneralService.getIdUser(name, surname,userDao);
         Mentor mentor = mentorDao.findOne(idMentor);
-        Integer idCourse = GeneralService.getIdCourse(title);
+        Integer idCourse = GeneralService.getIdCourse(title,courseDao);
         Course course = courseDao.findOne(idCourse);
-        if (course.getMentorCourse() == null) {
-            course.setMentorCourse(mentor);
-            mentor.setCourseMentor(course);
+        if (course.getMentor() == null) {
+            Set<Course> courses = new HashSet<>();
+            if (mentor.getCourses() == null){
+                courses.add(course);
+            }else {
+                mentor.getCourses().add(course);
+            }
+            mentor.setCourses(courses);
+            course.setMentor(mentor);
             mentorDao.update(mentor);
+            courseDao.update(course);
+
         } else {
             System.out.println("For this course the mentor has been already assigned");
         }
-
     }
 
     public List<Course> getAllCourses() {

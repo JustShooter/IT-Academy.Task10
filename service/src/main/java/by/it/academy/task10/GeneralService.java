@@ -8,13 +8,8 @@ import java.util.List;
 
 public class GeneralService {
 
-    private static Dao<User> userDao = new Dao<>(User.class);
-    private static Dao<Student> studentDao = new Dao<>(Student.class);
-    private static Dao<Course> courseDao = new Dao<>(Course.class);
-    private static Dao<Task> taskDao = new Dao<>(Task.class);
-    private static Dao<MarkReport> markReportDao = new Dao<>(MarkReport.class);
 
-    static Integer getIdUser(String name, String surname) {
+    static Integer getIdUser(String name, String surname, Dao<User> userDao) {
         List<User> allUsers = userDao.findAll();
         User user = allUsers.stream()
                 .filter(st -> st.getName().equals(name) && st.getSurname().equals(surname))
@@ -25,9 +20,10 @@ public class GeneralService {
             return null;
         }
 
+
     }
 
-    static Integer getIdTask(String taskTitle) {
+    static Integer getIdTask(String taskTitle, Dao<Task> taskDao) {
         List<Task> allTasks = taskDao.findAll();
         Task task = allTasks.stream().filter(t -> t.getTitle().equals(taskTitle))
                 .findAny().orElse(null);
@@ -38,7 +34,7 @@ public class GeneralService {
         }
     }
 
-    static Integer getIdCourse(String courseTitle) {
+    static Integer getIdCourse(String courseTitle, Dao<Course> courseDao) {
         List<Course> allCourses = courseDao.findAll();
         Course course = allCourses.stream().filter(c -> c.getTitle().equals(courseTitle))
                 .findAny().orElse(null);
@@ -49,19 +45,19 @@ public class GeneralService {
         }
     }
 
-    static Integer getIdMentorOfCourse(String courseTitle) {
+    static Integer getIdMentorOfCourse(String courseTitle, Dao<Course> courseDao) {
         List<Course> allCourses = courseDao.findAll();
         Course course = allCourses.stream()
                 .filter(m -> m.getTitle().equals(courseTitle))
                 .findAny().orElse(null);
         if (course != null) {
-            return course.getMentorCourse().getId();
+            return course.getMentor().getId();
         } else {
             return null;
         }
     }
 
-    static Integer getIdTaskFromCourse(String titleT, String titleC) {
+    static Integer getIdTaskFromCourse(String titleT, String titleC, Dao<Task> taskDao, Dao<Course> courseDao) {
         List<Task> allTasks = taskDao.findAll();
         List<Course> allCourses = courseDao.findAll();
         Course course = allCourses.stream().filter(c -> c.getTitle().equals(titleC)).findFirst().orElse(null);
@@ -74,10 +70,12 @@ public class GeneralService {
     }
 
     static Integer getIdReport(String nameS, String surnameS,
-                               String titleT, String titleC) throws SQLException {
-        Integer idTaskFromCourse = getIdTaskFromCourse(titleT, titleC);
+                               String titleT, String titleC,
+                               Dao<Task> taskDao, Dao<Student> studentDao,
+                               Dao<MarkReport> markReportDao, Dao<Course> courseDao, Dao<User> userDao) throws SQLException {
+        Integer idTaskFromCourse = getIdTaskFromCourse(titleT, titleC,taskDao, courseDao);
         Task task = taskDao.findOne(idTaskFromCourse);
-        Integer idStudent = getIdUser(nameS, surnameS);
+        Integer idStudent = getIdUser(nameS, surnameS, userDao);
         Student student = studentDao.findOne(idStudent);
         List<MarkReport> allReports = markReportDao.findAll();
         if (allReports.size() != 0) {
