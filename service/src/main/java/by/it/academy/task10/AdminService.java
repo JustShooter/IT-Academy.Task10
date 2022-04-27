@@ -1,6 +1,6 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.Dao;
+import by.it.academy.task10.DAO.*;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 public class AdminService {
-    private final Dao<Student> studentDao = new Dao<>(Student.class);
-    private final Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
-    private final Dao<Course> courseDao = new Dao<>(Course.class);
-    private final Dao<User> userDao = new Dao<User>(User.class);
+    private final GenericDAO<Student> studentDao = new StudentDao();
+    private final GenericDAO<Mentor> mentorDao = new MentorDao();
+    private final GenericDAO<Course> courseDao = new CourseDao();
+    private final GenericDAO<User> userDao = new UserDAO();
 
     public void createStudent(String name, String surname) {
         Integer idUser = GeneralService.getIdUser(name, surname, userDao);

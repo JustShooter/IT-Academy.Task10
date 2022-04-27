@@ -1,6 +1,7 @@
-package java.by.it.academy.task10.dao;
+package by.it.academy.task10.dao;
 
-import by.it.academy.task10.dao.Dao;
+import by.it.academy.task10.DAO.GenericDAO;
+import by.it.academy.task10.DAO.StudentDao;
 import by.it.academy.task10.entity.Student;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class DaoTest {
 
-    Dao<Student> studentDao = new Dao<>(Student.class);
+    GenericDAO<Student> studentDao = new StudentDao();
     Student student = Student.builder()
             .name("Sonia")
             .surname("Volkova")

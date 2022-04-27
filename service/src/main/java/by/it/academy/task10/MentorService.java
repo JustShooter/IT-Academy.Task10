@@ -1,6 +1,6 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.Dao;
+import by.it.academy.task10.DAO.*;
 import by.it.academy.task10.entity.*;
 
 import java.sql.SQLException;
@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class MentorService {
 
-    private Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
-    private Dao<Course> courseDao = new Dao<>(Course.class);
-    private Dao<User> userDao = new Dao<User>(User.class);
-    private Dao<Student> studentDao = new Dao<>(Student.class);
-    private Dao<Task> taskDao = new Dao<>(Task.class);
-    private Dao<MarkReport> markReportDao = new Dao<>(MarkReport.class);
+    private GenericDAO<Mentor> mentorDao = new MentorDao();
+    private GenericDAO<Course> courseDao = new CourseDao();
+    private GenericDAO<Student> studentDao = new StudentDao();
+    private GenericDAO<Task> taskDao = new TaskDao();
+    private GenericDAO<MarkReport> markReportDao = new MarkReportDao();
+    private final GenericDAO<User> userDao = new UserDAO();
 
 
     public void createTask(String titleCourse, String titleTask) throws SQLException {
@@ -50,7 +50,7 @@ public class MentorService {
         Integer idMentorOfCourse = GeneralService.getIdMentorOfCourse(titleCourse, courseDao);
         Mentor mentor = mentorDao.findOne(idMentorOfCourse);
         Integer idReport = GeneralService.getIdReport(nameStudent, surnameStudent, titleTask, titleCourse,
-                taskDao, studentDao, markReportDao, courseDao, userDao);
+                taskDao, studentDao, markReportDao, courseDao,userDao);
         if (idReport == null) {
             MarkReport markReport = MarkReport.builder()
                     .mentor(mentor)

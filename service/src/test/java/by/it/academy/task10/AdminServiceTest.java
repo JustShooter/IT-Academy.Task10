@@ -1,6 +1,5 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.Dao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -16,9 +15,9 @@ import static org.junit.Assert.*;
 public class AdminServiceTest {
 //    AdminService as = new AdminService();
 //    GeneralService gs = new GeneralService();
-//    private Dao<Student> studentDao = new Dao<>(Student.class);
-//    Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
-//    Dao<Course> courseDao = new Dao<>(Course.class);
+//    private GenericDAO<Student> studentDao = new GenericDAO<>(Student.class);
+//    GenericDAO<Mentor> mentorDao = new GenericDAO<>(Mentor.class);
+//    GenericDAO<Course> courseDao = new GenericDAO<>(Course.class);
 //
 //    @Before
 //    public void init(){
