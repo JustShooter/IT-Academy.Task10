@@ -1,9 +1,9 @@
-package by.it.academy.task10.DAO2;
+package by.it.academy.task10.DAO;
 
 import by.it.academy.task10.entity.MarkReport;
 import by.it.academy.task10.util.HibernateUtil;
 
-public class MarkReportDao extends DAOBase<MarkReport>{
+public class MarkReportDao extends AbstractDAO<MarkReport> {
 
     public MarkReportDao() {
         super(MarkReport.class, HibernateUtil.getEntityManager());
