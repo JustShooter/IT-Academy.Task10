@@ -7,6 +7,8 @@
         <groupId>by.it.academy.task10</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>repository</artifactId>
@@ -45,9 +47,6 @@
                     <execution>
                         <id>main</id>
                         <phase>process-resources</phase>
-                        <configuration>
-                            <propertyFile>src/main/resources/liquibase/properties/liquibase.properties</propertyFile>
-                        </configuration>
                         <goals>
                             <goal>update</goal>
                         </goals>

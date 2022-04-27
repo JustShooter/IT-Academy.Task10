@@ -16,7 +16,7 @@ public interface GenericDao<T> extends Serializable  {
 
     void delete(T entity);
 
-    void deleteById(long entityId) throws SQLException;
+    void deleteById(Integer entityId) throws SQLException;
 
     void closeAll();
 }
