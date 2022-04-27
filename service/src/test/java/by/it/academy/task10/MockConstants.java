@@ -6,6 +6,8 @@ public class MockConstants {
     public static final String SURNAME_USER = "Wick";
     public static final String COURSE_TITTLE_JAVA = "Java";
     public static final String COURSE_TITLE_PYTHON = "Python";
+    public static final String ROLE_MENTOR = "Mentor";
+    public static final String ROLE_STUDENT = "Student";
 
     public static final String TITTLE_PYTHON_COURSE = "Python course";
 

@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdminServiceTest {
 
+
     AdminService adminService = new AdminService();
 
     private final Dao<Student> studentDao = new Dao<>(Student.class);
@@ -20,14 +21,14 @@ class AdminServiceTest {
     private final Dao<Course> courseDao = new Dao<>(Course.class);
 
     @Test
-    void mentorShouldBeCreatedTest() {
+    void mentorShouldBeCreated() {
         adminService.createMentor(NAME_USER, SURNAME_USER);
         Integer thisMentorId = GeneralService.getIdUser(NAME_USER, SURNAME_USER);
         boolean mentorIsCreated = false;
         List<Mentor> mentorList = mentorDao.findAll();
         for (Mentor mentor : mentorList) {
             if (mentor.getName().equals(NAME_USER) && mentor.getSurname().equals(SURNAME_USER)
-                    && mentor.getId() != null && mentor.getRole().equals("Mentor")
+                    && mentor.getId() != null && mentor.getRole().equals(ROLE_MENTOR)
                     && Objects.equals(mentor.getId(), thisMentorId)) {
                 mentorIsCreated = true;
                 break;
@@ -38,7 +39,7 @@ class AdminServiceTest {
     }
 
     @Test
-    void mentorShouldBeRemovedTest() {
+    void mentorShouldBeRemoved() {
 
         try {
             adminService.createMentor(NAME_USER, SURNAME_USER);
@@ -51,14 +52,14 @@ class AdminServiceTest {
     }
 
     @Test
-    void studentShouldBeCreatedTest() {
+    void studentShouldBeCreated() {
         adminService.createStudent(NAME_USER, SURNAME_USER);
         Integer thisStudentId = GeneralService.getIdUser(NAME_USER, SURNAME_USER);
         boolean studentIsCreated = false;
         List<Student> studentList = studentDao.findAll();
         for (Student student : studentList) {
             if (student.getName().equals(NAME_USER) && student.getSurname().equals(SURNAME_USER)
-                    && student.getId() != null && student.getRole().equals("Student")
+                    && student.getId() != null && student.getRole().equals(ROLE_STUDENT)
                     && student.getId().equals(thisStudentId)) {
                 studentIsCreated = true;
                 break;
@@ -69,7 +70,7 @@ class AdminServiceTest {
     }
 
     @Test
-    void studentShouldBeRemovedTest() {
+    void studentShouldBeRemoved() {
         try {
             adminService.createStudent(NAME_USER, SURNAME_USER);
             adminService.deleteStudent(NAME_USER, SURNAME_USER);
@@ -81,7 +82,7 @@ class AdminServiceTest {
     }
 
     @Test
-    void courseShouldBeCreatedTest() {
+    void courseShouldBeCreated() {
         adminService.createCourse(COURSE_TITTLE_JAVA);
         Integer thisCourseId = GeneralService.getIdCourse(COURSE_TITTLE_JAVA);
         boolean courseIsCreated = false;
@@ -97,7 +98,7 @@ class AdminServiceTest {
     }
 
     @Test
-    void courseShouldBeRemovedTest() {
+    void courseShouldBeRemoved() {
         adminService.createCourse(COURSE_TITTLE_JAVA);
         try {
             adminService.deleteCourse(COURSE_TITTLE_JAVA);
@@ -110,7 +111,7 @@ class AdminServiceTest {
     }
 
     @Test
-    void showAllCoursesTest() {
+    void showAllCourses() {
         adminService.createCourse(COURSE_TITTLE_JAVA);
         adminService.createCourse(COURSE_TITLE_PYTHON);
         try {
@@ -128,27 +129,28 @@ class AdminServiceTest {
     }
 
 
-
-
-
     //TODO addStudentToCourse
+
+
     @Test
-    void mentorShouldBeAddedToCourseTest() {
-        adminService.createCourse(COURSE_TITTLE_JAVA);
-        adminService.createMentor(NAME_USER, SURNAME_USER);
+    void mentorShouldBeAddedToCourse() {
+    Mentor mentor = Mentor.builder().role("Mentor").name("1").surname("2").build();
+    Course course = Course.builder()
+            .title("999")
+            .build();
+
+       mentorDao.create(mentor);
+       courseDao.create(course);
+
         try {
-            Mentor mentor = mentorDao.findOne(GeneralService.getIdUser(NAME_USER, SURNAME_USER));
-            Course course = courseDao.findOne(GeneralService.getIdCourse(COURSE_TITTLE_JAVA));
-            adminService.addMentorToCourse(NAME_USER, SURNAME_USER, COURSE_TITTLE_JAVA);
-            Mentor newMentor = mentorDao.update(mentor);
-            Course newCourse = courseDao.update(course);
-            System.out.println(course.getMentorCourse());
-            System.out.println(newCourse.getMentorCourse());
-            System.out.println(mentor.getCourseMentor());
-            System.out.println(newMentor.getCourseMentor());
-            //Assert.assertEquals("message", mentor, course.getMentorCourse());
+            adminService.addMentorToCourse("1","2","999");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        mentorDao.update(mentor);
+        courseDao.update(course);
+        System.out.println(mentor.getCourseMentor());
+        //TODO
+        // ??? method return null
     }
 }

@@ -11,9 +11,9 @@ import static by.it.academy.task10.MockUtils.*;
 
 class GeneralServiceTest {
 
-    private Dao<User> userDao = new Dao<>(User.class);
-    private Dao<Course> courseDao = new Dao<>(Course.class);
-    private Dao<Task> taskDao = new Dao<>(Task.class);
+    private final Dao<User> userDao = new Dao<>(User.class);
+    private final Dao<Course> courseDao = new Dao<>(Course.class);
+    private final Dao<Task> taskDao = new Dao<>(Task.class);
     private final Dao<Mentor> mentorDao = new Dao<>(Mentor.class);
     private Dao<Student> studentDao = new Dao<>(Student.class);
     private Dao<MarkReport> markReportDao = new Dao<>(MarkReport.class);
