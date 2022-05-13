@@ -1,11 +1,11 @@
 package by.it.academy.task10.dao;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface GenericDao<T> extends Serializable  {
-    T findOne(Object id) throws SQLException;
+public interface GenericDAO<T> {
+
+    T findOne(Integer id) throws SQLException;
 
     @SuppressWarnings("unchecked")
     List<T> findAll();
@@ -16,7 +16,7 @@ public interface GenericDao<T> extends Serializable  {
 
     void delete(T entity);
 
-    void deleteById(long entityId) throws SQLException;
+    void deleteById(Integer entityId) throws SQLException;
 
     void closeAll();
 }

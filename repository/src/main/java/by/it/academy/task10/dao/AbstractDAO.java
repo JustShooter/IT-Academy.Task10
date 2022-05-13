@@ -1,24 +1,20 @@
 package by.it.academy.task10.dao;
 
 import by.it.academy.task10.util.HibernateUtil;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Dao<T> implements GenericDao<T> {
+@RequiredArgsConstructor
+public abstract class AbstractDAO<T> implements GenericDAO<T> {
+
     private final Class<T> clazz;
     private final EntityManager entityManager;
 
-
-    public Dao(Class<T> incomingClass) {
-        this.clazz = incomingClass;
-        this.entityManager = HibernateUtil.getEntityManager();
-    }
-
-
     @Override
-    public T findOne(final Object id) throws SQLException {
+    public T findOne(Integer id) throws SQLException {
         T entity = entityManager.find(clazz, id);
         if(entity==null){
             throw new SQLException("No such id found!");
@@ -33,7 +29,7 @@ public class Dao<T> implements GenericDao<T> {
     }
 
     @Override
-    public T create(final T entity) {
+    public T create(T entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
         entityManager.getTransaction().commit();
@@ -41,7 +37,7 @@ public class Dao<T> implements GenericDao<T> {
     }
 
     @Override
-    public T update(final T incomingEntity) {
+    public T update(T incomingEntity) {
         entityManager.getTransaction().begin();
         T entity = entityManager.merge(incomingEntity);
         entityManager.getTransaction().commit();
@@ -49,14 +45,14 @@ public class Dao<T> implements GenericDao<T> {
     }
 
     @Override
-    public void delete(final T entity) {
+    public void delete(T entity) {
         entityManager.getTransaction().begin();
         entityManager.remove(entity);
         entityManager.getTransaction().commit();
     }
 
     @Override
-    public void deleteById(final long entityId) throws SQLException {
+    public void deleteById(Integer entityId) throws SQLException {
         final T entity = findOne(entityId);
         delete(entity);
     }
@@ -66,4 +62,5 @@ public class Dao<T> implements GenericDao<T> {
         entityManager.close();
         HibernateUtil.close();
     }
+
 }

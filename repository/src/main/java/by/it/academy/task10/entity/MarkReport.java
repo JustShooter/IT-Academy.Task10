@@ -63,7 +63,6 @@ public class MarkReport implements Serializable {
                 "task = " + task + ", " +
                 "mark = " + mark + ", " +
                 "feedback = " + feedback + ", " +
-                "student = " + student + ", " +
                 "mentor = " + mentor + ")";
     }
 }

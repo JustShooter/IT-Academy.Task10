@@ -4,12 +4,12 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,3 +26,4 @@ public class Student extends User {
     private Set<MarkReport> markReports = new HashSet<MarkReport>();
 
 }
+
