@@ -16,9 +16,8 @@ import java.util.Set;
 @DiscriminatorValue("M")
 public class Mentor extends User {
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
-    private Course courseMentor;
+    @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
+    private Set<Course> courses = new HashSet<>();
 
     @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     private Set<MarkReport> markReports = new HashSet<MarkReport>();

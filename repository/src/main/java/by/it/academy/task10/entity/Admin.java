@@ -16,9 +16,5 @@ import java.util.Set;
 @DiscriminatorValue("A")
 public class Admin extends User {
 
-//    @OneToMany(mappedBy = "adminCourse", fetch = FetchType.LAZY)
-//    private Set<Course> courses = new HashSet<Course>();
-//
-//    @OneToMany(mappedBy = "adminMentor", fetch = FetchType.LAZY)
-//    private Set<Mentor> mentors = new HashSet<Mentor>();
+
 }
