@@ -1,7 +1,15 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
-import by.it.academy.task10.entity.*;
+import by.it.academy.task10.dao.CourseDao;
+import by.it.academy.task10.dao.GenericDAO;
+import by.it.academy.task10.dao.MentorDao;
+import by.it.academy.task10.dao.TaskDao;
+import by.it.academy.task10.dao.UserDAO;
+import by.it.academy.task10.entity.Course;
+import by.it.academy.task10.entity.Mentor;
+import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

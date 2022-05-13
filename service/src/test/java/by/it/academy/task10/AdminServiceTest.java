@@ -1,6 +1,10 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.CourseDao;
+import by.it.academy.task10.dao.GenericDAO;
+import by.it.academy.task10.dao.MentorDao;
+import by.it.academy.task10.dao.StudentDao;
+import by.it.academy.task10.dao.UserDAO;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;

@@ -1,7 +1,9 @@
 package by.it.academy.task10;
 
 
-import by.it.academy.task10.entity.*;
+import by.it.academy.task10.entity.Course;
+import by.it.academy.task10.entity.Mentor;
+import by.it.academy.task10.entity.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
