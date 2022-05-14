@@ -1,6 +1,10 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.GenericDAO;
+import by.it.academy.task10.dao.impl.CourseDaoImpl;
+import by.it.academy.task10.dao.impl.MentorDaoImpl;
+import by.it.academy.task10.dao.impl.StudentDaoImpl;
+import by.it.academy.task10.dao.impl.UserDAO;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -12,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 public class AdminService {
-    private final GenericDAO<Student> studentDao = new StudentDao();
-    private final GenericDAO<Mentor> mentorDao = new MentorDao();
-    private final GenericDAO<Course> courseDao = new CourseDao();
+    private final GenericDAO<Student> studentDao = new StudentDaoImpl();
+    private final GenericDAO<Mentor> mentorDao = new MentorDaoImpl();
+    private final GenericDAO<Course> courseDao = new CourseDaoImpl();
     private final GenericDAO<User> userDao = new UserDAO();
 
     public void createStudent(String name, String surname) {
@@ -23,7 +27,6 @@ public class AdminService {
             studentDao.create(Student.builder()
                     .name(name)
                     .surname(surname)
-                    .role("Student")
                     .build());
         } else {
             System.out.println("Student already exist");
@@ -57,7 +60,6 @@ public class AdminService {
             Mentor mentor = mentorDao.create(Mentor.builder()
                     .name(name)
                     .surname(surname)
-                    .role("Mentor")
                     .build());
         } else {
             System.out.println("Mentor already exist");

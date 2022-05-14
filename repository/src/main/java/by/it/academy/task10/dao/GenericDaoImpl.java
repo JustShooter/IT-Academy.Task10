@@ -1,4 +1,4 @@
-package by.it.academy.task10.DAO;
+package by.it.academy.task10.dao;
 
 import by.it.academy.task10.util.HibernateUtil;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class AbstractDAO<T> implements GenericDAO<T> {
+public abstract class GenericDaoImpl<T> implements GenericDAO<T> {
 
     private final Class<T> clazz;
     private final EntityManager entityManager;
@@ -23,7 +23,6 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         return entityManager.createQuery("from " + clazz.getName()).getResultList();
     }

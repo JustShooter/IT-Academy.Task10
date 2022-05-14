@@ -30,8 +30,6 @@ public abstract class User implements Serializable {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "role")
-    private String role;
 
     @Override
     public String toString() {

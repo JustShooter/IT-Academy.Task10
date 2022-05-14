@@ -1,7 +1,11 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.GenericDAO;
-import by.it.academy.task10.entity.*;
+import by.it.academy.task10.dao.GenericDAO;
+import by.it.academy.task10.entity.Course;
+import by.it.academy.task10.entity.MarkReport;
+import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,21 +14,17 @@ public class GeneralService {
 
 
     static Integer getIdUser(String name, String surname, GenericDAO<User> userDao) {
-        List<User> allUsers = userDao.findAll();
-        User user = allUsers.stream()
+        return userDao.findAll().stream()
                 .filter(st -> st.getName().equals(name) && st.getSurname().equals(surname))
-                .findAny().orElse(null);
-        if (user != null) {
-            return user.getId();
-        } else {
-            return null;
-        }
+                .map(User::getId)
+                .findFirst().orElse(null);
     }
 
 
     static Integer getIdTask(String taskTitle, GenericDAO<Task> taskDao) {
         List<Task> allTasks = taskDao.findAll();
-        Task task = allTasks.stream().filter(t -> t.getTitle().equals(taskTitle))
+        Task task = allTasks.stream()
+                .filter(t -> t.getTitle().equals(taskTitle))
                 .findAny().orElse(null);
         if (task != null) {
             return task.getId();
@@ -35,8 +35,10 @@ public class GeneralService {
 
     static Integer getIdCourse(String courseTitle, GenericDAO<Course> courseDao) {
         List<Course> allCourses = courseDao.findAll();
-        Course course = allCourses.stream().filter(c -> c.getTitle().equals(courseTitle))
-                .findAny().orElse(null);
+        Course course = allCourses.stream()
+                .filter(c -> c.getTitle().equals(courseTitle))
+                .findAny()
+                .orElse(null);
         if (course != null) {
             return course.getId();
         } else {
@@ -59,7 +61,8 @@ public class GeneralService {
     static Integer getIdTaskFromCourse(String titleT, String titleC, GenericDAO<Task> taskDao, GenericDAO<Course> courseDao) {
         List<Task> allTasks = taskDao.findAll();
         List<Course> allCourses = courseDao.findAll();
-        Course course = allCourses.stream().filter(c -> c.getTitle().equals(titleC)).findFirst().orElse(null);
+        Course course = allCourses.stream()
+                .filter(c -> c.getTitle().equals(titleC)).findFirst().orElse(null);
         Task task = allTasks.stream().filter(t -> t.getTaskCourse().equals(course)).findAny().orElse(null);
         if (task != null) {
             return task.getId();

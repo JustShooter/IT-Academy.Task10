@@ -9,7 +9,7 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        EntityManager manager = HibernateUtil.getEntityManager();
+        /*EntityManager manager = HibernateUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(Student.builder()
                 .name("John")
@@ -49,7 +49,7 @@ public class App {
         System.out.println(id);
 
         manager.close();
-        HibernateUtil.close();
+        HibernateUtil.close();*/
 
     }
 }

@@ -1,4 +1,4 @@
-package by.it.academy.task10.DAO;
+package by.it.academy.task10.dao;
 
 import java.sql.SQLException;
 import java.util.List;

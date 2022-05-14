@@ -1,6 +1,7 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.GenericDAO;
+import by.it.academy.task10.dao.impl.*;
 import by.it.academy.task10.entity.*;
 
 import java.sql.SQLException;
@@ -8,11 +9,11 @@ import java.util.Set;
 
 public class MentorService {
 
-    private GenericDAO<Mentor> mentorDao = new MentorDao();
-    private GenericDAO<Course> courseDao = new CourseDao();
-    private GenericDAO<Student> studentDao = new StudentDao();
-    private GenericDAO<Task> taskDao = new TaskDao();
-    private GenericDAO<MarkReport> markReportDao = new MarkReportDao();
+    private GenericDAO<Mentor> mentorDao = new MentorDaoImpl();
+    private GenericDAO<Course> courseDao = new CourseDaoImpl();
+    private GenericDAO<Student> studentDao = new StudentDaoImpl();
+    private GenericDAO<Task> taskDao = new TaskDaoImpl();
+    private GenericDAO<MarkReport> markReportDao = new MarkReportDaoImpl();
     private final GenericDAO<User> userDao = new UserDAO();
 
 
