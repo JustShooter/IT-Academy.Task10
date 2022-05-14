@@ -1,5 +1,6 @@
 package by.it.academy.task10;
 
+import by.it.academy.task10.dao.StudentDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
 
@@ -31,7 +32,12 @@ public class AppService {
         mentorService.createTask("Course 2","Task_2");
         Set<Student> studentsOfCourse = mentorService.findStudentsOfCourse("Course 1");
         mentorService.rateAndFeedbackStudentTask("John","Lennon","Task_1", "Course 1", 8, "task not done");
-
+        StudentDao studentDao = new StudentDao();
+        System.out.println(studentDao.getByName("Michael", "Korsakov"));
+        System.out.println(adminService.findStudentById(5));
+        System.out.println(adminService.findCourseById(1));
+        System.out.println(adminService.findTaskById(1));
+        System.out.println(adminService.findReportById(1));
     }
 
 }

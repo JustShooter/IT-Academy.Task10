@@ -1,6 +1,5 @@
 package by.it.academy.task10.dao;
 
-import by.it.academy.task10.DAO.CourseDao;
 import by.it.academy.task10.entity.Course;
 import org.junit.Test;
 

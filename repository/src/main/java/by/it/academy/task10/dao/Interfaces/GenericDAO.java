@@ -1,4 +1,4 @@
-package by.it.academy.task10.dao;
+package by.it.academy.task10.dao.Interfaces;
 
 import java.sql.SQLException;
 import java.util.List;

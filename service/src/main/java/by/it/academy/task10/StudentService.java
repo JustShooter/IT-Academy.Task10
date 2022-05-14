@@ -1,9 +1,10 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.CourseDao;
-import by.it.academy.task10.DAO.GenericDAO;
-import by.it.academy.task10.dao.StudentDao;
-import by.it.academy.task10.dao.UserDAO;
+import by.it.academy.task10.dao.*;
+import by.it.academy.task10.dao.Interfaces.CourseDaoInt;
+import by.it.academy.task10.dao.Interfaces.GenericDAO;
+import by.it.academy.task10.dao.Interfaces.StudentDaoInt;
+import by.it.academy.task10.dao.Interfaces.UserDaoInt;
 import by.it.academy.task10.entity.*;
 
 import java.sql.SQLException;
@@ -11,9 +12,9 @@ import java.util.Collections;
 import java.util.Set;
 
 public class StudentService {
-    private final GenericDAO<Student> studentDao = new StudentDao();
-    private final GenericDAO<Course> courseDao = new CourseDao();
-    private final GenericDAO<User> userDao = new UserDAO();
+    private final StudentDaoInt studentDao = new StudentDao();
+    private final CourseDaoInt courseDao = new CourseDao();
+    private final UserDaoInt userDao = new UserDAO();
 
     public void addStudentToCourse(String name, String surname, String title) throws SQLException{
         AdminService adminService = new AdminService();

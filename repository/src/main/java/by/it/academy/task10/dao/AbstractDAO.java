@@ -1,5 +1,6 @@
 package by.it.academy.task10.dao;
 
+import by.it.academy.task10.dao.Interfaces.GenericDAO;
 import by.it.academy.task10.util.HibernateUtil;
 import lombok.RequiredArgsConstructor;
 

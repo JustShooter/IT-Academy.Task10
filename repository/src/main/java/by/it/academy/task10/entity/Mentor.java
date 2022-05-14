@@ -16,9 +16,11 @@ import java.util.Set;
 @DiscriminatorValue("M")
 public class Mentor extends User {
 
+    @Builder.Default
     @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     private Set<Course> courses = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     private Set<MarkReport> markReports = new HashSet<MarkReport>();
 }

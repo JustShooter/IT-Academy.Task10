@@ -1,6 +1,7 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.*;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -17,10 +18,9 @@ import static by.it.academy.task10.MockUtils.*;
 
 public class AdminServiceTest {
 
-    private final GenericDAO<Student> studentDao = new StudentDao();
-    private final GenericDAO<Mentor> mentorDao = new MentorDao();
-    private final GenericDAO<Course> courseDao = new CourseDao();
-    private final GenericDAO<User> userDao = new UserDAO();
+    public static CourseDaoInt courseDao = new CourseDao();
+    public static MentorDaoInt mentorDao = new MentorDao();
+    public static UserDaoInt userDao = new UserDAO();
 
     AdminService adminService = new AdminService();
 

@@ -1,11 +1,12 @@
 package by.it.academy.task10.dao;
 
+import by.it.academy.task10.dao.Interfaces.UserDaoInt;
 import by.it.academy.task10.entity.User;
 import by.it.academy.task10.util.HibernateUtil;
 
 import java.sql.SQLException;
 
-public class UserDAO extends AbstractDAO<User> {
+public class UserDAO extends AbstractDAO<User> implements UserDaoInt {
     public UserDAO() {
         super(User.class, HibernateUtil.getEntityManager());
     }

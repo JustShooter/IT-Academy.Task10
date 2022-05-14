@@ -1,6 +1,7 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.*;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -10,10 +11,10 @@ import static by.it.academy.task10.MockConstants.*;
 
 public class MockUtils {
 
-    public static GenericDAO<Course> courseDao = new CourseDao();
-    public static GenericDAO<Task> taskDao = new TaskDao();
-    public static GenericDAO<Mentor> mentorDao = new MentorDao();
-    public static GenericDAO<Student> studentDao = new StudentDao();
+    public static CourseDaoInt courseDao = new CourseDao();
+    public static TaskDaoInt taskDao = new TaskDao();
+    public static MentorDaoInt mentorDao = new MentorDao();
+    public static StudentDaoInt studentDao = new StudentDao();
 
     public static AdminService adminService = new AdminService();
 

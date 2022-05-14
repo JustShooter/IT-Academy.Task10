@@ -1,6 +1,7 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.*;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.entity.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,10 @@ import static by.it.academy.task10.MockUtils.*;
 
 class GeneralServiceTest {
 
-    private final GenericDAO<User> userDao = new UserDAO();
-    private final GenericDAO<Course> courseDao = new CourseDao();
-    private final GenericDAO<Task> taskDao = new TaskDao();
-    private final GenericDAO<Mentor> mentorDao = new MentorDao();
+    public static CourseDaoInt courseDao = new CourseDao();
+    public static TaskDaoInt taskDao = new TaskDao();
+    public static MentorDaoInt mentorDao = new MentorDao();
+    public static UserDaoInt userDao = new UserDAO();
 
     @Test
     void getIdUserTest() {
@@ -137,7 +138,7 @@ class GeneralServiceTest {
         taskDao.update(secondTask);
 
         Integer currentTaskId = GeneralService
-                .getIdTaskFromCourse(FIRST_TASK, TITTLE_JAVA_COURSE, taskDao, courseDao);
+                .getIdTask(FIRST_TASK, taskDao);
 
         Assertions.assertNotNull(currentTaskId);
         Assertions.assertEquals(currentTaskId, firstTask.getId());
