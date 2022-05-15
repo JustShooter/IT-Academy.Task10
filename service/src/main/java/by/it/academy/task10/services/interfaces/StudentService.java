@@ -9,7 +9,6 @@ import java.util.Set;
 
 public interface StudentService {
     void addStudentToCourse(String name, String surname, String title) throws SQLException;
-
     Set<Course> findCoursesOfStudent(String nameStudent, String surnameStudent) throws SQLException;
 
     Set<Task> findTasksOfCourse(String titleCourse) throws SQLException;

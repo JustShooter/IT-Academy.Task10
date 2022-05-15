@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class TaskDto implements Serializable {
+
     private Integer id;
     private String title;
+    private CourseDto taskCourse;
 }

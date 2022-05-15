@@ -1,94 +1,174 @@
 package by.it.academy.task10;
 
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.implementations.UserDAOImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
-import org.junit.Before;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.GeneralService;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
-import static org.junit.Assert.*;
+import static by.it.academy.task10.MockConstants.*;
+import static by.it.academy.task10.MockUtils.*;
+
 
 public class AdminServiceTest {
-//    AdminService as = new AdminService();
-//    GeneralService gs = new GeneralService();
-//    private GenericDAO<Student> studentDao = new GenericDAO<>(Student.class);
-//    GenericDAO<Mentor> mentorDao = new GenericDAO<>(Mentor.class);
-//    GenericDAO<Course> courseDao = new GenericDAO<>(Course.class);
-//
-//    @Before
-//    public void init(){
-//        as.createStudent("Сергей", "Сварцевич");
-//        as.createStudent("John", "Weak");
-//        as.addCourse("Java");
-//        as.createMentor("Жанна", "Колесень");
-//        as.createMentor("Инга", "Чешун");
-//        as.addCourse("C++");
-//    }
-//
-//    @Test
-//    public void createStudentSuccessfully() {
-//        assertTrue(as.createStudent("Степан", "Смоленский"));
-//    }
-//
-//    @Test
-//    public void createStudentFailure() {
-//        assertFalse(as.createStudent("Сергей", "Сварцевич"));
-//    }
-//
-//    @Test
-//    public void deleteStudent() throws SQLException {
-//        as.deleteStudent("John", "Weak");
-//        assertNull(gs.getIdUser("John", "Weak"));
-//    }
-//
-//    @Test
-//    public void addStudentToCourse() throws SQLException {
-//        as.addStudentToCourse("Степан", "Смоленский", "Java");
-//        Set<Course> courses = studentDao.findOne
-//                (gs.getIdUser("Степан", "Смоленский")).getCourses();
-//        assertNotNull(courses);
-//    }
-//
-//    @Test
-//    public void createMentorSuccessfully() {
-//        assertTrue(as.createMentor("Елизавета", "Велимович"));
-//    }
-//
-//    @Test
-//    public void createMentorFailure() {
-//        assertFalse(as.createMentor("Жанна", "Колесень"));
-//    }
-//
-//    @Test
-//    public void deleteMentor() throws SQLException {
-//        as.deleteMentor("Инга", "Чешун");
-//        assertNull(gs.getIdUser("Инга", "Чешун"));
-//    }
-//
-//    @Test
-//    public void addMentorToCourse() throws SQLException {
-//        as.addMentorToCourse("Жанна", "Колесень", "Java");
-//       /* Course java = courseDao.findOne(gs.getIdCourse("Java"));*/
-//        Course course = mentorDao.findOne
-//                (gs.getIdUser("Жанна", "Колесень")).getCourseMentor();
-//        /*assertEquals(course, java);*/
-//        assertNotNull(course);
-//    }
-//
-//    /*@Test
-//    public void getAllCourses() throws SQLException {
-//        List<Course> list = as.getAllCourses();
-//        Course course = list.get(gs.getIdCourse("Java") - 1);
-//        Course one = courseDao.findOne(gs.getIdCourse("Java"));
-//        assertEquals(course, one);
-//    }*/
-//
-//    @Test
-//    public void addCourseFailure() {
-//        assertFalse(as.addCourse("C++"));
-//    }
+
+    public static CourseDao courseDao = new CourseDaoImpl();
+    public static MentorDao mentorDao = new MentorDaoImpl();
+    public static StudentDao studentDao = new StudentDaoImpl();
+    public static UserDao userDao = new UserDAOImpl();
+
+    AdminService adminService = new AdminServiceImpl();
+
+    @Test
+    public void createStudentTest() {
+        adminService.createStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
+        Integer thisStudentId = GeneralService
+                .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
+
+        try {
+            Student student = studentDao.findOne(thisStudentId);
+
+            Assertions.assertNotNull(student.getId());
+            Assertions.assertEquals(thisStudentId, student.getId());
+            Assertions.assertEquals(FIRST_STUDENT_NAME, student.getName());
+            Assertions.assertEquals(FIRST_STUDENT_SURNAME, student.getSurname());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createMentorTest() {
+        adminService.createMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
+        Integer thisMentorId = GeneralService
+                .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
+
+        try {
+            Student mentor = studentDao.findOne(thisMentorId);
+
+            Assertions.assertNotNull(mentor.getId());
+            Assertions.assertEquals(thisMentorId, mentor.getId());
+            Assertions.assertEquals(MENTOR_NAME_JAVA, mentor.getName());
+            Assertions.assertEquals(MENTOR_SURNAME_JAVA, mentor.getSurname());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createCourseTest() {
+        adminService.createCourse(TITTLE_JAVA_COURSE);
+        Integer thisCourseId = GeneralService.getIdCourse(TITTLE_JAVA_COURSE, courseDao);
+
+        try {
+            Course course = courseDao.findOne(thisCourseId);
+
+            Assertions.assertNotNull(course.getId());
+            Assertions.assertEquals(thisCourseId, course.getId());
+            Assertions.assertEquals(TITTLE_JAVA_COURSE, course.getTitle());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteStudentTest() {
+        adminService.createStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
+        Integer idStudentBefore = GeneralService
+                .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
+
+        try {
+            Student student = studentDao.findOne(idStudentBefore);
+            adminService.deleteStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
+
+            Integer idStudentAfter = GeneralService
+                    .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
+
+            Assertions.assertEquals(idStudentBefore, student.getId());
+            Assertions.assertNull(idStudentAfter);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteMentorTest() {
+        adminService.createMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
+        Integer idMentorBefore = GeneralService
+                .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
+        try {
+            Mentor mentor = mentorDao.findOne(idMentorBefore);
+            adminService.deleteMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
+            Integer idMentorAfter = GeneralService
+                    .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
+
+            Assertions.assertEquals(idMentorBefore, mentor.getId());
+            Assertions.assertNull(idMentorAfter);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteCourseTest() {
+        adminService.createCourse(TITTLE_JAVA_COURSE);
+        Integer idCourseBefore = GeneralService
+                .getIdCourse(TITTLE_JAVA_COURSE, courseDao);
+        try {
+            Course course = courseDao.findOne(idCourseBefore);
+            adminService.deleteCourse(TITTLE_JAVA_COURSE);
+            Integer idCourseAfter = GeneralService
+                    .getIdCourse(TITTLE_JAVA_COURSE, courseDao);
+
+            Assertions.assertEquals(idCourseBefore, course.getId());
+            Assertions.assertNull(idCourseAfter);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getAllCoursesTest() {
+
+        Course courseJava = createCourseJava();
+        Course coursePython = createCoursePython();
+        Course courseRuby = createCourseRuby();
+
+        List<Course> allCourses = courseDao.findAll();
+
+        List<Course> getCourseList = adminService.getAllCourses();
+
+        Assertions.assertNotNull(allCourses);
+        Assertions.assertNotNull(getCourseList);
+
+        Assertions.assertEquals(getCourseList, allCourses);
+
+        Assertions.assertEquals(getCourseList
+                .get(0).getTitle(), allCourses.get(0).getTitle());
+        Assertions.assertEquals(getCourseList
+                .get(1).getTitle(), allCourses.get(1).getTitle());
+        Assertions.assertEquals(getCourseList
+                .get(2).getTitle(), allCourses.get(2).getTitle());
+    }
 }

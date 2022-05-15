@@ -1,32 +1,57 @@
 package by.it.academy.task10.services.implementations;
 
-import by.it.academy.task10.dao.implementations.CourseDaoImpl;
-import by.it.academy.task10.dao.implementations.MentorDaoImpl;
-import by.it.academy.task10.dao.implementations.StudentDaoImpl;
-import by.it.academy.task10.dao.implementations.UserDAOImpl;
-import by.it.academy.task10.dao.interfaces.CourseDao;
-import by.it.academy.task10.dao.interfaces.MentorDao;
-import by.it.academy.task10.dao.interfaces.StudentDao;
-import by.it.academy.task10.dao.interfaces.UserDao;
+import by.it.academy.task10.dao.implementations.*;
+import by.it.academy.task10.dao.interfaces.*;
+import by.it.academy.task10.dto.CourseDto;
+import by.it.academy.task10.dto.MarkReportDto;
+import by.it.academy.task10.dto.StudentDto;
+import by.it.academy.task10.dto.TaskDto;
+import by.it.academy.task10.dto.mapper.CourseMapper;
+import by.it.academy.task10.dto.mapper.MarkReportMapper;
+import by.it.academy.task10.dto.mapper.StudentMapper;
+import by.it.academy.task10.dto.mapper.TaskMapper;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.implementations.*;
+import by.it.academy.task10.interfaces.*;
 import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.GeneralService;
 
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 public class AdminServiceImpl implements AdminService {
-    private static StudentDao studentDao = new StudentDaoImpl();
-    private static MentorDao mentorDao = new MentorDaoImpl();
-    private static CourseDao courseDao = new CourseDaoImpl();
-    private static UserDao userDao = new UserDAOImpl();
+
+    private final StudentDao studentDao = new StudentDaoImpl();
+    private final MentorDao mentorDao = new MentorDaoImpl();
+    private final CourseDao courseDao = new CourseDaoImpl();
+    private final UserDao userDao = new UserDAOImpl();
+    private final TaskDao taskDao = new TaskDaoImpl();
+    private final MarkReportDao markReportDao = new MarkReportDaoImpl();
+    private final StudentMapper userMapper = new StudentMapper();
+    private final CourseMapper courseMapper = new CourseMapper();
+    private final TaskMapper taskMapper = new TaskMapper();
+    private final MarkReportMapper markReportMapper = new MarkReportMapper();
+
+    public MarkReportDto findReportById(Integer id) throws SQLException {
+        return markReportMapper.mapFrom(markReportDao.findOne(id));
+    }
+
+    public TaskDto findTaskById(Integer id) throws SQLException {
+        return taskMapper.mapFrom(taskDao.findOne(id));
+    }
+    public CourseDto findCourseById(Integer id) throws SQLException {
+        return courseMapper.mapFrom(courseDao.findOne(id));
+    }
+
+    public StudentDto findStudentById(Integer id) throws SQLException {
+        return userMapper.mapFrom(studentDao.findOne(id));
+    }
 
     public void createStudent(String name, String surname) {
-        Integer idUser = GeneralServiceImpl.getIdUser(name, surname, userDao);
-        if (idUser == null) {
+        if (GeneralService.getIdUser(name, surname, userDao) == null) {
             studentDao.create(Student.builder()
                     .name(name)
                     .surname(surname)
@@ -35,87 +60,58 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void deleteStudent(String name, String surname) throws SQLException {
-        Integer idUser = GeneralServiceImpl.getIdUser(name, surname, userDao);
+        Integer idUser = GeneralService.getIdUser(name, surname, userDao);
         studentDao.deleteById(idUser);
     }
 
-    public void addStudentToCourse(String name, String surname, String title) throws SQLException {
-        Integer idStudent = GeneralServiceImpl.getIdUser(name, surname, userDao);
-        Student student = studentDao.findOne(idStudent);
-        Integer idCourse = GeneralServiceImpl.getIdCourse(title, courseDao);
-        Course course = courseDao.findOne(idCourse);
-        Set<Course> courseSet = student.getCourses();
-        if (courseSet != null) {
-            student.getCourses().add(course);
-        } else {
-            Set<Course> set = new HashSet<>();
-            set.add(course);
-            student.setCourses(set);
-        }
-        studentDao.update(student);
-    }
-
     public void createMentor(String name, String surname) {
-        Integer idUser = GeneralServiceImpl.getIdUser(name, surname, userDao);
-        if (idUser == null) {
-            Mentor mentor = mentorDao.create(Mentor.builder()
+        if (GeneralService.getIdUser(name, surname, userDao) == null) {
+            mentorDao.create(Mentor.builder()
                     .name(name)
                     .surname(surname)
                     .build());
-        } else {
-            System.out.println("Mentor already exist");
         }
     }
 
     public void deleteMentor(String name, String surname) throws SQLException {
-        Integer idMentor = GeneralServiceImpl.getIdUser(name, surname, userDao);
+        Integer idMentor = GeneralService.getIdUser(name, surname, userDao);
         mentorDao.deleteById(idMentor);
     }
 
     public void createCourse(String titleCourse) {
-        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse, courseDao);
-        if (idCourse == null) {
-            Course course = courseDao.create(Course.builder()
+        if (GeneralService.getIdCourse(titleCourse, courseDao) == null) {
+            courseDao.create(Course.builder()
                     .title(titleCourse)
                     .build());
-        } else {
-            System.out.println("Course already exist");
         }
     }
 
     public void deleteCourse(String titleCourse) throws SQLException {
-        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse, courseDao);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse, courseDao);
         courseDao.deleteById(idCourse);
     }
 
     public void addMentorToCourse(String name, String surname, String title) throws SQLException {
-        Integer idMentor = GeneralServiceImpl.getIdUser(name, surname, userDao);
-        Mentor mentor = mentorDao.findOne(idMentor);
-        Integer idCourse = GeneralServiceImpl.getIdCourse(title, courseDao);
-        Course course = courseDao.findOne(idCourse);
+        Mentor mentor = mentorDao.findOne(GeneralService.getIdUser(name, surname, userDao));
+        Course course = courseDao.findOne(GeneralService.getIdCourse(title, courseDao));
         if (course.getMentor() == null) {
-            Set<Course> courses = new HashSet<>();
-            if (mentor.getCourses() == null) {
-                courses.add(course);
-            } else {
-                mentor.getCourses().add(course);
-            }
-            mentor.setCourses(courses);
             course.setMentor(mentor);
-            mentorDao.update(mentor);
-            courseDao.update(course);
-
-        } else {
-            System.out.println("For this course the mentor has been already assigned");
+            mentor.getCourses().add(course);
         }
+        mentorDao.update(mentor);
+        courseDao.update(course);
+    }
+
+    public void addStudentToCourse(String name, String surname, String title) throws SQLException {
+        Student student = studentDao.findOne(GeneralService.getIdUser(name, surname, userDao));
+        Course course = courseDao.findOne(GeneralService.getIdCourse(title, courseDao));
+        student.getCourses().add(course);
+      /*  course.getStudents().add(student);
+        courseDao.update(course);*/
+        studentDao.update(student);
     }
 
     public List<Course> getAllCourses() {
-        List<Course> all = courseDao.findAll();
-        if (all.size() != 0) {
-            return all;
-        } else {
-            return null;
-        }
+        return (courseDao.findAll() == null) ? null : courseDao.findAll();
     }
 }

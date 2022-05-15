@@ -17,9 +17,9 @@ import java.util.Collections;
 import java.util.Set;
 
 public class StudentServiceImpl implements StudentService {
-    private static StudentDao studentDao = new StudentDaoImpl();
-    private static CourseDao courseDao = new CourseDaoImpl();
-    private static UserDao userDao = new UserDAOImpl();
+    private final StudentDao studentDao = new StudentDaoImpl();
+    private final CourseDao courseDao = new CourseDaoImpl();
+    private final UserDao userDao = new UserDAOImpl();
 
     public void addStudentToCourse(String name, String surname, String title) throws SQLException{
         AdminServiceImpl adminService = new AdminServiceImpl();

@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseDto implements Serializable {
+
     private Integer id;
     private String title;
+    private MentorDto mentor;
 }

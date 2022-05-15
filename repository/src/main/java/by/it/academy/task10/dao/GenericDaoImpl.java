@@ -1,6 +1,5 @@
 package by.it.academy.task10.dao;
 
-import by.it.academy.task10.dao.GenericDAO;
 import by.it.academy.task10.util.HibernateUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class GenericDaoImpl<T> implements GenericDAO<T> {
 
     private final Class<T> clazz;
-    private final EntityManager entityManager;
+    protected final EntityManager entityManager;
 
     @Override
     public T findOne(Integer id) throws SQLException {

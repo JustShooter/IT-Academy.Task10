@@ -15,4 +15,7 @@ public class MarkReportDto implements Serializable {
     private Integer id;
     private Integer mark;
     private String feedback;
+    private StudentDto student;
+    private TaskDto task;
+    private MentorDto mentor;
 }
