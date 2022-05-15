@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class DaoTest {
 
-    GenericDAO<Student> studentDao = new StudentDao();
+    GenericDAOIIII<Student> studentDao = new StudentDao();
     Student student = Student.builder()
             .name("Sonia")
             .surname("Volkova")
