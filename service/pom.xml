@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>by.it.academy.task10</groupId>
-            <artifactId>repository</artifactId>
+            <artifactId>service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

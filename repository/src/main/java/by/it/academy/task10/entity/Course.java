@@ -26,7 +26,8 @@ public class Course implements Serializable {
     private String title;
 
     @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
-    private Set<Task> tasks = new HashSet<Task>();
+    @Builder.Default
+    private Set<Task> tasks = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "mentor_id")
@@ -35,7 +36,8 @@ public class Course implements Serializable {
     @ManyToMany
     @JoinTable(name = "course_student",
             joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students = new HashSet<Student>();
+    @Builder.Default
+    private Set<Student> students = new HashSet<>();
 
     @Override
     public String toString() {

@@ -2,15 +2,18 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.implementations.MentorServiceImpl;
+import by.it.academy.task10.services.implementations.StudentServiceImpl;
 
 import java.sql.SQLException;
 import java.util.Set;
 
 public class AppService {
     public static void main(String[] args) throws SQLException {
-        AdminService adminService = new AdminService();
-        StudentService studentService = new StudentService();
-        MentorService mentorService = new MentorService();
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        StudentServiceImpl studentService = new StudentServiceImpl();
+        MentorServiceImpl mentorService = new MentorServiceImpl();
         adminService.createCourse("Course 1");
         adminService.createCourse("Course 2");
 

@@ -1,16 +1,13 @@
-package by.it.academy.task10;
+package by.it.academy.task10.services.implementations;
 
 import by.it.academy.task10.dao.GenericDAO;
-import by.it.academy.task10.entity.Course;
-import by.it.academy.task10.entity.MarkReport;
-import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.entity.Task;
-import by.it.academy.task10.entity.User;
+import by.it.academy.task10.entity.*;
+import by.it.academy.task10.services.interfaces.GeneralService;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class GeneralService {
+public class GeneralServiceImpl implements GeneralService {
 
 
     static Integer getIdUser(String name, String surname, GenericDAO<User> userDao) {

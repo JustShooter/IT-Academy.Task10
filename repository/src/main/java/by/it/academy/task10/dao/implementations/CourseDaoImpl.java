@@ -1,11 +1,9 @@
-package by.it.academy.task10.dao.impl;
+package by.it.academy.task10.dao.implementations;
 
+import by.it.academy.task10.dao.interfaces.CourseDao;
 import by.it.academy.task10.dao.GenericDaoImpl;
-import by.it.academy.task10.dao.interf.CourseDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.util.HibernateUtil;
-
-import javax.persistence.EntityManager;
 
 public class CourseDaoImpl extends GenericDaoImpl<Course> implements CourseDao {
 

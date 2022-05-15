@@ -1,25 +1,26 @@
-package by.it.academy.task10;
+package by.it.academy.task10.services.implementations;
 
-import by.it.academy.task10.dao.GenericDAO;
-import by.it.academy.task10.dao.impl.*;
+import by.it.academy.task10.dao.implementations.*;
+import by.it.academy.task10.dao.interfaces.*;
 import by.it.academy.task10.entity.*;
+import by.it.academy.task10.services.interfaces.MentorService;
 
 import java.sql.SQLException;
 import java.util.Set;
 
-public class MentorService {
+public class MentorServiceImpl implements MentorService {
 
-    private GenericDAO<Mentor> mentorDao = new MentorDaoImpl();
-    private GenericDAO<Course> courseDao = new CourseDaoImpl();
-    private GenericDAO<Student> studentDao = new StudentDaoImpl();
-    private GenericDAO<Task> taskDao = new TaskDaoImpl();
-    private GenericDAO<MarkReport> markReportDao = new MarkReportDaoImpl();
-    private final GenericDAO<User> userDao = new UserDAO();
+    private static MentorDao mentorDao = new MentorDaoImpl();
+    private static CourseDao courseDao = new CourseDaoImpl();
+    private static StudentDao studentDao = new StudentDaoImpl();
+    private static TaskDao taskDao = new TaskDaoImpl();
+    private static MarkReportDao markReportDao = new MarkReportDaoImpl();
+    private static UserDao userDao = new UserDAOImpl();
 
 
     public void createTask(String titleCourse, String titleTask) throws SQLException {
-        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
-        Integer idCourse = GeneralService.getIdCourse(titleCourse, courseDao);
+        Integer idTaskFromCourse = GeneralServiceImpl.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
+        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse, courseDao);
         Course course = courseDao.findOne(idCourse);
         if (idTaskFromCourse == null) {
             Task task = taskDao.create(Task.builder()
@@ -34,7 +35,7 @@ public class MentorService {
     }
 
     public void deleteTask(String titleTask, String titleCourse) throws SQLException {
-        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
+        Integer idTaskFromCourse = GeneralServiceImpl.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
         Task one = taskDao.findOne(idTaskFromCourse);
         taskDao.delete(one);
 
@@ -44,13 +45,13 @@ public class MentorService {
                                            String titleTask, String titleCourse,
                                            Integer mark, String feedback) throws SQLException {
 
-        Integer idStudent = GeneralService.getIdUser(nameStudent, surnameStudent, userDao);
+        Integer idStudent = GeneralServiceImpl.getIdUser(nameStudent, surnameStudent, userDao);
         Student student = studentDao.findOne(idStudent);
-        Integer idTaskFromCourse = GeneralService.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
+        Integer idTaskFromCourse = GeneralServiceImpl.getIdTaskFromCourse(titleTask, titleCourse, taskDao, courseDao);
         Task task = taskDao.findOne(idTaskFromCourse);
-        Integer idMentorOfCourse = GeneralService.getIdMentorOfCourse(titleCourse, courseDao);
+        Integer idMentorOfCourse = GeneralServiceImpl.getIdMentorOfCourse(titleCourse, courseDao);
         Mentor mentor = mentorDao.findOne(idMentorOfCourse);
-        Integer idReport = GeneralService.getIdReport(nameStudent, surnameStudent, titleTask, titleCourse,
+        Integer idReport = GeneralServiceImpl.getIdReport(nameStudent, surnameStudent, titleTask, titleCourse,
                 taskDao, studentDao, markReportDao, courseDao,userDao);
         if (idReport == null) {
             MarkReport markReport = MarkReport.builder()
@@ -71,7 +72,7 @@ public class MentorService {
     }
 
     public Set<Student> findStudentsOfCourse(String titleCourse) throws SQLException {
-        Integer idCourse = GeneralService.getIdCourse(titleCourse,courseDao);
+        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse,courseDao);
         Course course = courseDao.findOne(idCourse);
         Set<Student> students = course.getStudents();
         if (students.size() != 0) {

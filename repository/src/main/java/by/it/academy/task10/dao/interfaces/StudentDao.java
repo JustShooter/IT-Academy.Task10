@@ -1,4 +1,4 @@
-package by.it.academy.task10.dao.interf;
+package by.it.academy.task10.dao.interfaces;
 
 import by.it.academy.task10.dao.GenericDAO;
 import by.it.academy.task10.entity.Student;

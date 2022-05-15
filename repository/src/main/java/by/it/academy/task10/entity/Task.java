@@ -30,7 +30,8 @@ public class Task implements Serializable {
     private Course taskCourse;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
-    private Set<MarkReport> markReports = new HashSet<MarkReport>();
+    @Builder.Default
+    private Set<MarkReport> markReports = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

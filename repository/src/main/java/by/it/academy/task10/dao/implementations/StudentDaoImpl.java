@@ -1,7 +1,7 @@
-package by.it.academy.task10.dao.impl;
+package by.it.academy.task10.dao.implementations;
 
 import by.it.academy.task10.dao.GenericDaoImpl;
-import by.it.academy.task10.dao.interf.StudentDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.util.HibernateUtil;
 

@@ -1,5 +1,6 @@
 package by.it.academy.task10.dao;
 
+import by.it.academy.task10.dao.GenericDAO;
 import by.it.academy.task10.util.HibernateUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class GenericDaoImpl<T> implements GenericDAO<T> {
+public class GenericDaoImpl<T> implements GenericDAO<T> {
 
     private final Class<T> clazz;
     private final EntityManager entityManager;

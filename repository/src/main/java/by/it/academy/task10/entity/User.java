@@ -18,7 +18,7 @@ import java.io.Serializable;
 @DiscriminatorColumn(name = "USER_TYPE",
         discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("U")
-public abstract class User implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
