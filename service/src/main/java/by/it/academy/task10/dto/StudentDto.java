@@ -1,12 +1,18 @@
 package by.it.academy.task10.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentDto implements Serializable {
-    private final Integer id;
-    private final String name;
-    private final String surname;
+    private Integer id;
+    private String name;
+    private String surname;
 }

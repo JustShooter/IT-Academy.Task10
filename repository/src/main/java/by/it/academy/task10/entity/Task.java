@@ -1,7 +1,6 @@
 package by.it.academy.task10.entity;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -31,7 +30,8 @@ public class Task implements Serializable {
     private Course taskCourse;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
-    private Set<MarkReport> markReports = new HashSet<MarkReport>();
+    @Builder.Default
+    private Set<MarkReport> markReports = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

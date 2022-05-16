@@ -10,11 +10,8 @@ public class MockConstants {
     public static final String SECOND_TASK = "Second task";
     public static final String MENTOR_NAME_JAVA = "Genady";
     public static final String MENTOR_SURNAME_JAVA = "Ylasik";
-    public static final String MENTOR_ROLE_JAVA = "Mentor";
     public static final String FIRST_STUDENT_NAME = "Ivan";
     public static final String FIRST_STUDENT_SURNAME = "Petrov";
-    public static final String FIRST_STUDENT_ROLE = "Student";
     public static final String SECOND_STUDENT_NAME = "Sergey";
     public static final String SECOND_STUDENT_SURNAME = "Ivanov";
-    public static final String SECOND_STUDENT_ROLE = "Student";
 }

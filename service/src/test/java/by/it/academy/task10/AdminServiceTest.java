@@ -1,14 +1,19 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.CourseDao;
-import by.it.academy.task10.dao.GenericDAO;
-import by.it.academy.task10.dao.MentorDao;
-import by.it.academy.task10.dao.StudentDao;
-import by.it.academy.task10.dao.UserDAO;
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.implementations.UserDAOImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.entity.User;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.GeneralService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -21,12 +26,12 @@ import static by.it.academy.task10.MockUtils.*;
 
 public class AdminServiceTest {
 
-    private final GenericDAO<Student> studentDao = new StudentDao();
-    private final GenericDAO<Mentor> mentorDao = new MentorDao();
-    private final GenericDAO<Course> courseDao = new CourseDao();
-    private final GenericDAO<User> userDao = new UserDAO();
+    public static CourseDao courseDao = new CourseDaoImpl();
+    public static MentorDao mentorDao = new MentorDaoImpl();
+    public static StudentDao studentDao = new StudentDaoImpl();
+    public static UserDao userDao = new UserDAOImpl();
 
-    AdminService adminService = new AdminService();
+    AdminService adminService = new AdminServiceImpl();
 
     @Test
     public void createStudentTest() {

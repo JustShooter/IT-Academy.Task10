@@ -87,5 +87,8 @@
                                  constraintName="fk_coustu_on_student" referencedColumnNames="id"
                                  referencedTableName="user"/>
     </changeSet>
+    <changeSet id="jd2Task10-13" author="JustShooter">
+        <dropColumn columnName="role" tableName="user"/>
+    </changeSet>
 
 </databaseChangeLog>

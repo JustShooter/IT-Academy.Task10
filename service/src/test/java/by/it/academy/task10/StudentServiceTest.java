@@ -2,6 +2,8 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.services.implementations.StudentServiceImpl;
+import by.it.academy.task10.services.interfaces.StudentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,7 @@ class StudentServiceTest {
     @Test
     void addStudentToCourseTest() {
 
-        StudentService studentService = new StudentService();
+        StudentService studentService = new StudentServiceImpl();
 
         Student student = createFirstStudent();
         Student student2 = createSecondStudent();
@@ -57,7 +59,7 @@ class StudentServiceTest {
     @Test
     void findCoursesOfStudentTest() {
 
-        StudentService studentService = new StudentService();
+        StudentService studentService = new StudentServiceImpl();
 
         Student student = createFirstStudent();
         Student student2 = createSecondStudent();
