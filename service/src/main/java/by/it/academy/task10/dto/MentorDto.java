@@ -1,15 +1,20 @@
 package by.it.academy.task10.dto;
 
-import by.it.academy.task10.entity.Mentor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MentorDto implements Serializable {
 
-    private final Integer id;
-    private final String name;
-    private final String surname;
+    private Integer id;
+    private String name;
+    private String surname;
 
 }

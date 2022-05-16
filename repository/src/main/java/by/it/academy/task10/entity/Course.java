@@ -1,7 +1,6 @@
 package by.it.academy.task10.entity;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,7 +27,8 @@ public class Course implements Serializable {
 
     @Builder.Default
     @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
-    private Set<Task> tasks = new HashSet<Task>();
+    @Builder.Default
+    private Set<Task> tasks = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "mentor_id")
@@ -37,9 +37,9 @@ public class Course implements Serializable {
     @Builder.Default
     @ManyToMany
     @JoinTable(name = "course_student",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> students = new HashSet<Student>();
+            joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @Builder.Default
+    private Set<Student> students = new HashSet<>();
 
     @Override
     public String toString() {

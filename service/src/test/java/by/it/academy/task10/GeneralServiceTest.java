@@ -1,8 +1,18 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.dao.*;
-import by.it.academy.task10.dao.Interfaces.*;
-import by.it.academy.task10.entity.*;
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.TaskDaoImpl;
+import by.it.academy.task10.dao.implementations.UserDAOImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.TaskDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
+import by.it.academy.task10.entity.Course;
+import by.it.academy.task10.entity.Mentor;
+import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.services.implementations.GeneralServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +24,10 @@ import static by.it.academy.task10.MockUtils.*;
 
 class GeneralServiceTest {
 
-    public static CourseDaoInt courseDao = new CourseDao();
-    public static TaskDaoInt taskDao = new TaskDao();
-    public static MentorDaoInt mentorDao = new MentorDao();
-    public static UserDaoInt userDao = new UserDAO();
+    public static CourseDao courseDao = new CourseDaoImpl();
+    public static TaskDao taskDao = new TaskDaoImpl();
+    public static MentorDao mentorDao = new MentorDaoImpl();
+    public static UserDao userDao = new UserDAOImpl();
 
     @Test
     void getIdUserTest() {
@@ -25,8 +35,8 @@ class GeneralServiceTest {
         Student student = createFirstStudent();
         Mentor mentor = createMentorJava();
 
-        Integer currentIdStudent = GeneralService.getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
-        Integer currentIdMentor = GeneralService.getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
+        Integer currentIdStudent = GeneralServiceImpl.getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
+        Integer currentIdMentor = GeneralServiceImpl.getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
 
         Assertions.assertNotNull(currentIdStudent);
         Assertions.assertEquals(currentIdStudent, student.getId());
@@ -45,8 +55,8 @@ class GeneralServiceTest {
         Task firstTask = createFirstTask();
         Task secondTask = createSecondTask();
 
-        Integer currentIdFirstTask = GeneralService.getIdTask(FIRST_TASK, taskDao);
-        Integer currentIdSecondTask = GeneralService.getIdTask(SECOND_TASK, taskDao);
+        Integer currentIdFirstTask = GeneralServiceImpl.getIdTask(FIRST_TASK, taskDao);
+        Integer currentIdSecondTask = GeneralServiceImpl.getIdTask(SECOND_TASK, taskDao);
 
         Assertions.assertNotNull(currentIdFirstTask);
         Assertions.assertEquals(currentIdFirstTask, firstTask.getId());
@@ -63,8 +73,8 @@ class GeneralServiceTest {
         Course courseJava = createCourseJava();
         Course coursePython = createCoursePython();
 
-        Integer currentIdJavaCourse = GeneralService.getIdCourse(TITTLE_JAVA_COURSE, courseDao);
-        Integer currentIdJavaPython = GeneralService.getIdCourse(TITTLE_PYTHON_COURSE, courseDao);
+        Integer currentIdJavaCourse = GeneralServiceImpl.getIdCourse(TITTLE_JAVA_COURSE, courseDao);
+        Integer currentIdJavaPython = GeneralServiceImpl.getIdCourse(TITTLE_PYTHON_COURSE, courseDao);
 
         Assertions.assertNotNull(currentIdJavaCourse);
         Assertions.assertEquals(currentIdJavaCourse, courseJava.getId());
@@ -103,10 +113,10 @@ class GeneralServiceTest {
         mentorDao.update(mentorJava);
         mentorDao.update(mentorPython);
 
-        Integer idMentorOfPythonCourse = GeneralService
+        Integer idMentorOfPythonCourse = GeneralServiceImpl
                 .getIdMentorOfCourse(TITTLE_PYTHON_COURSE, courseDao);
 
-        Integer idMentorOfJavaCourse = GeneralService
+        Integer idMentorOfJavaCourse = GeneralServiceImpl
                 .getIdMentorOfCourse(TITTLE_JAVA_COURSE, courseDao);
 
         Assertions.assertNotNull(idMentorOfPythonCourse);
@@ -137,7 +147,7 @@ class GeneralServiceTest {
         taskDao.update(firstTask);
         taskDao.update(secondTask);
 
-        Integer currentTaskId = GeneralService
+        Integer currentTaskId = GeneralServiceImpl
                 .getIdTask(FIRST_TASK, taskDao);
 
         Assertions.assertNotNull(currentTaskId);
