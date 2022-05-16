@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,3 +42,4 @@ public class Student extends User {
         return Objects.hash(super.hashCode(), courses, markReports);
     }
 }
+

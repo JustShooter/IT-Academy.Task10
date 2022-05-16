@@ -5,13 +5,13 @@
 
     <persistence-unit name="academy" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>by.it.academy.task10.entity.Course</class>
-        <class>by.it.academy.task10.entity.Student</class>
-
         <class>by.it.academy.task10.entity.Admin</class>
+        <class>by.it.academy.task10.entity.Course</class>
         <class>by.it.academy.task10.entity.MarkReport</class>
         <class>by.it.academy.task10.entity.Mentor</class>
+        <class>by.it.academy.task10.entity.Student</class>
         <class>by.it.academy.task10.entity.Task</class>
+        <class>by.it.academy.task10.entity.User</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -23,7 +23,7 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.connection.pool_size" value="10"/>
+            <property name="hibernate.connection.pool_size" value="20"/>
             <property name="hibernate.connection.isolation" value="2"/>
         </properties>
     </persistence-unit>

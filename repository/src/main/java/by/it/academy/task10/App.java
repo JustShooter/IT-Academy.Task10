@@ -9,32 +9,27 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        /*EntityManager manager = HibernateUtil.getEntityManager();
+        EntityManager manager = HibernateUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(Student.builder()
                 .name("John")
                 .surname("Weak")
-                .role("Student")
                 .build());
         manager.persist(Student.builder()
                 .name("John")
                 .surname("Smith")
-                .role("Student")
                 .build());
         manager.persist(Student.builder()
                 .name("Peter")
                 .surname("Parker")
-                .role("Student")
                 .build());
         manager.persist(Student.builder()
                 .name("Jonny")
                 .surname("Silverhand")
-                .role("Student")
                 .build());
         manager.persist(Mentor.builder()
                 .name("Gena")
                 .surname("Vlasik")
-                .role("Mentor")
                 .build());
         manager.getTransaction().commit();
         List<Student> studentList = manager.createQuery("from " + Student.class.getName()).getResultList();
@@ -49,7 +44,7 @@ public class App {
         System.out.println(id);
 
         manager.close();
-        HibernateUtil.close();*/
+        HibernateUtil.close();
 
     }
 }
