@@ -2,7 +2,7 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.dao.implementations.CourseDaoImpl;
-import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.Interfaces.CourseDao;
 import org.junit.Test;
 
 import java.sql.SQLException;

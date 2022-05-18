@@ -2,7 +2,7 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Task;
 import by.it.academy.task10.dao.implementations.TaskDaoImpl;
-import by.it.academy.task10.dao.interfaces.TaskDao;
+import by.it.academy.task10.dao.Interfaces.TaskDao;
 import org.junit.Test;
 
 import java.sql.SQLException;

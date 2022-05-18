@@ -22,12 +22,10 @@ import java.util.Set;
 @DiscriminatorValue("M")
 public class Mentor extends User {
 
-    @Builder.Default
     @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Course> courses = new HashSet<>();
 
-    @Builder.Default
     @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MarkReport> markReports = new HashSet<>();

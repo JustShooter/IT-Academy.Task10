@@ -1,7 +1,7 @@
 package by.it.academy.task10.services.implementations;
 
 import by.it.academy.task10.dao.implementations.*;
-import by.it.academy.task10.dao.interfaces.*;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.dto.MarkReportDto;
 import by.it.academy.task10.dto.StudentDto;
@@ -13,8 +13,6 @@ import by.it.academy.task10.dto.mapper.TaskMapper;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.implementations.*;
-import by.it.academy.task10.interfaces.*;
 import by.it.academy.task10.services.interfaces.AdminService;
 import by.it.academy.task10.services.interfaces.GeneralService;
 

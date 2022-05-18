@@ -1,6 +1,5 @@
-package by.it.academy.task10.dao.interfaces;
+package by.it.academy.task10.dao.Interfaces;
 
-import by.it.academy.task10.dao.GenericDAO;
 import by.it.academy.task10.entity.MarkReport;
 
 public interface MarkReportDao extends GenericDAO<MarkReport> {

@@ -1,7 +1,7 @@
 package by.it.academy.task10;
 
 import by.it.academy.task10.dao.implementations.StudentDaoImpl;
-import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.Interfaces.StudentDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.services.implementations.AdminServiceImpl;

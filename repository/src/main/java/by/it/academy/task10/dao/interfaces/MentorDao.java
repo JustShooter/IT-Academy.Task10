@@ -1,6 +1,5 @@
-package by.it.academy.task10.dao.interfaces;
+package by.it.academy.task10.dao.Interfaces;
 
-import by.it.academy.task10.dao.GenericDAO;
 import by.it.academy.task10.entity.Mentor;
 
 public interface MentorDao extends GenericDAO<Mentor> {

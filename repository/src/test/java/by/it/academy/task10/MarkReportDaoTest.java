@@ -2,7 +2,7 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.MarkReport;
 import by.it.academy.task10.dao.implementations.MarkReportDaoImpl;
-import by.it.academy.task10.dao.interfaces.MarkReportDao;
+import by.it.academy.task10.dao.Interfaces.MarkReportDao;
 import org.junit.Test;
 
 import java.sql.SQLException;

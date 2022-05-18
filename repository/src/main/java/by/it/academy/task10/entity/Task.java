@@ -29,7 +29,6 @@ public class Task implements Serializable {
     @JoinColumn(name = "course_id")
     private Course taskCourse;
 
-    @Builder.Default
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MarkReport> markReports = new HashSet<>();

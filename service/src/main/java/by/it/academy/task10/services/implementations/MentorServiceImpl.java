@@ -1,10 +1,9 @@
 package by.it.academy.task10.services.implementations;
 
 import by.it.academy.task10.dao.implementations.*;
-import by.it.academy.task10.dao.interfaces.*;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.entity.*;
-import by.it.academy.task10.implementations.*;
-import by.it.academy.task10.interfaces.*;
+
 import by.it.academy.task10.services.interfaces.MentorService;
 
 import java.sql.SQLException;

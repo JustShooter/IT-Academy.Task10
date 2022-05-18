@@ -25,7 +25,6 @@ public class Course implements Serializable {
     @Column(name = "course_title")
     private String title;
 
-    @Builder.Default
     @OneToMany(mappedBy = "taskCourse", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Task> tasks = new HashSet<>();
@@ -34,7 +33,6 @@ public class Course implements Serializable {
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
 
-    @Builder.Default
     @ManyToMany
     @JoinTable(name = "course_student",
             joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))

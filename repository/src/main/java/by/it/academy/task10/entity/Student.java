@@ -18,14 +18,12 @@ import java.util.Set;
 @DiscriminatorValue("S")
 public class Student extends User {
 
-    @Builder.Default
     @ManyToMany
     @JoinTable(name = "course_student",
             joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     @Builder.Default
     private Set<Course> courses = new HashSet<>();
 
-    @Builder.Default
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MarkReport> markReports = new HashSet<>();

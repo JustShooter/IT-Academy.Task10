@@ -2,7 +2,7 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.dao.implementations.MentorDaoImpl;
-import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.Interfaces.MentorDao;
 import org.junit.Test;
 
 import java.sql.SQLException;

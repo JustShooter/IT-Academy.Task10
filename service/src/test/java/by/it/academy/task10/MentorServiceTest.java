@@ -2,8 +2,7 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.dao.implementations.MentorDaoImpl;
 import by.it.academy.task10.dao.implementations.TaskDaoImpl;
-import by.it.academy.task10.dao.interfaces.MentorDao;
-import by.it.academy.task10.dao.interfaces.TaskDao;
+import by.it.academy.task10.dao.Interfaces.*;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
