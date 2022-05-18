@@ -1,7 +1,7 @@
 body {
     background:
             #C0C0C0
-            url(images/back.jpg)
+            url(back.jpg)
             no-repeat
             fixed;
     -moz-background-size: 100%;

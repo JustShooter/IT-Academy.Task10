@@ -45,6 +45,7 @@ public class MentorDaoTest {
     public void findAll() throws SQLException {
         Mentor mentor = mentorDao.create(Mentor.builder()
                 .name(MAXIM)
+                .surname(MAXIMOV)
                 .build());
         List<Mentor> all = mentorDao.findAll();
         Mentor actualMentor = all.stream()

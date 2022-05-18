@@ -1,12 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html xml:lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <title>Academy</title>
-    <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="images/stylesheet.css">
 </head>
 <body>
 <ul>
@@ -23,7 +21,7 @@
         </ul>
     <li><a href="#">Преподаватели</a>
         <ul>
-            <li><a href="#">Список преподавателей</a></li>
+            <li><a href="viewAllMentors">Список преподавателей</a></li>
             <li><a href="#">Добавить преподавателя</a></li>
         </ul>
     <li><a href="#">Успеваемость</a>

@@ -15,7 +15,7 @@ import static by.it.academy.task10.MockUtils.*;
 
 class StudentServiceTest {
 
-    @Test
+   /* @Test
     void addStudentToCourseTest() {
 
         StudentService studentService = new StudentServiceImpl();
@@ -54,9 +54,9 @@ class StudentServiceTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    @Test
+   /* @Test
     void findCoursesOfStudentTest() {
 
         StudentService studentService = new StudentServiceImpl();
@@ -99,5 +99,5 @@ class StudentServiceTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

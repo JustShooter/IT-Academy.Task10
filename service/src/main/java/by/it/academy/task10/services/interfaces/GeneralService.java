@@ -1,7 +1,10 @@
 package by.it.academy.task10.services.interfaces;
 
-import by.it.academy.task10.dao.interfaces.*;
-import by.it.academy.task10.interfaces.*;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MarkReportDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.TaskDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
 
 import java.sql.SQLException;
 

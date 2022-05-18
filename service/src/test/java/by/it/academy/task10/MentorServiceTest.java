@@ -54,7 +54,7 @@ class MentorServiceTest {
         }
     }
 
-    @Test
+   /* @Test
     void findStudentsOfCourseTest() {
 
         Course course = createCourseJava();
@@ -79,5 +79,5 @@ class MentorServiceTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

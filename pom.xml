@@ -24,8 +24,8 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -57,7 +57,6 @@
                 <configuration>
                     <dataFile>target/jacoco.exec</dataFile>
                     <outputDirectory>target/my-reports</outputDirectory>
-
                 </configuration>
                 <executions>
                     <execution>

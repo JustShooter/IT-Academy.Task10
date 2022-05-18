@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "USER_TYPE",
         discriminatorType = DiscriminatorType.CHAR)

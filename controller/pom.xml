@@ -7,7 +7,6 @@
         <groupId>by.it.academy.task10</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,6 +19,7 @@
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <tomcat-jsp-api.version>10.0.20</tomcat-jsp-api.version>
         <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -40,9 +40,9 @@
             <version>${tomcat-jsp-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>by.it.academy.task10</groupId>
-            <artifactId>service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
     </dependencies>
 

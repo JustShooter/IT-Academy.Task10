@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -33,14 +34,16 @@ public class Mentor extends User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Mentor mentor = (Mentor) o;
-        return courses.equals(mentor.courses) && markReports.equals(mentor.markReports);
+        return getId() != null
+                && Objects.equals(getId(), mentor.getId())
+                && Objects.equals(getName(), mentor.getName())
+                && Objects.equals(getSurname(), mentor.getSurname());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), courses, markReports);
+        return getClass().hashCode();
     }
 }

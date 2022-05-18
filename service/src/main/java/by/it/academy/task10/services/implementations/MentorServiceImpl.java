@@ -1,10 +1,22 @@
 package by.it.academy.task10.services.implementations;
 
-import by.it.academy.task10.dao.implementations.*;
-import by.it.academy.task10.dao.interfaces.*;
-import by.it.academy.task10.entity.*;
-import by.it.academy.task10.implementations.*;
-import by.it.academy.task10.interfaces.*;
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MarkReportDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.implementations.TaskDaoImpl;
+import by.it.academy.task10.dao.implementations.UserDAOImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MarkReportDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.TaskDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
+import by.it.academy.task10.entity.Course;
+import by.it.academy.task10.entity.MarkReport;
+import by.it.academy.task10.entity.Mentor;
+import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.entity.Task;
 import by.it.academy.task10.services.interfaces.MentorService;
 
 import java.sql.SQLException;
