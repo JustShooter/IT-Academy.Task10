@@ -1,7 +1,6 @@
 package by.it.academy.task10;
 
 
-import by.it.academy.task10.dao.Interfaces.GenericDAO;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.dao.implementations.StudentDaoImpl;
 import by.it.academy.task10.dao.Interfaces.StudentDao;

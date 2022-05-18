@@ -22,6 +22,8 @@ import java.util.List;
 
 public class AdminServiceImpl implements AdminService {
 
+
+    GeneralServiceImpl GeneralService = new GeneralServiceImpl();
     private final StudentDao studentDao = new StudentDaoImpl();
     private final MentorDao mentorDao = new MentorDaoImpl();
     private final CourseDao courseDao = new CourseDaoImpl();
@@ -91,7 +93,7 @@ public class AdminServiceImpl implements AdminService {
 
     public void addMentorToCourse(String name, String surname, String title) throws SQLException {
         Mentor mentor = mentorDao.findOne(GeneralService.getIdUser(name, surname, userDao));
-        Course course = courseDao.findOne(GeneralService.getIdCourse(title, courseDao));
+        Course course = courseDao.findOne(GeneralServiceImpl.getIdCourse(title, courseDao));
         if (course.getMentor() == null) {
             course.setMentor(mentor);
             mentor.getCourses().add(course);

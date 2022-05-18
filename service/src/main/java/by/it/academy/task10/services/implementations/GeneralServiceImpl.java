@@ -10,37 +10,24 @@ import java.util.List;
 public class GeneralServiceImpl implements GeneralService {
 
     public static Integer getIdUser(String name, String surname, UserDao userDao) {
-        return userDao.findAll().stream()
-                .filter(st -> name.equals(st.getName()) && surname.equals(st.getSurname()))
-                .map(User::getId)
-                .findFirst()
-                .orElse(null);
+        return userDao.getUserByName(name, surname) != null ?
+                userDao.getUserByName(name, surname).getId() : null;
     }
 
 
     public static Integer getIdTask(String taskTitle, TaskDao taskDao) {
-        return taskDao.findAll().stream()
-                .filter(t -> taskTitle.equals(t.getTitle()))
-                .map(Task::getId)
-                .findFirst()
-                .orElse(null);
+        return taskDao.getTaskByTitle(taskTitle) != null ?
+                taskDao.getTaskByTitle(taskTitle).getId() : null;
     }
 
     public static Integer getIdCourse(String courseTitle, CourseDao courseDao) {
-        return courseDao.findAll().stream()
-                .filter(c -> courseTitle.equals(c.getTitle()))
-                .map(Course::getId)
-                .findFirst()
-                .orElse(null);
+        return courseDao.getCourseByTitle(courseTitle) != null ?
+                courseDao.getCourseByTitle(courseTitle).getId() : null;
     }
 
     public static Integer getIdMentorOfCourse(String courseTitle, CourseDao courseDao) {
-        return courseDao.findAll().stream()
-                .filter(m -> courseTitle.equals(m.getTitle()))
-                .findFirst()
-                .map(Course::getMentor)
-                .map(Mentor::getId)
-                .orElse(null);
+        return courseDao.getCourseByTitle(courseTitle).getMentor() != null ?
+                courseDao.getCourseByTitle(courseTitle).getMentor().getId() : null;
     }
 
     public static Integer getIdReport(String nameS, String surnameS,
@@ -49,7 +36,7 @@ public class GeneralServiceImpl implements GeneralService {
                                       MarkReportDao markReportDao,
                                       UserDao userDao) throws SQLException {
         Task task = taskDao.findOne(getIdTask(titleT, taskDao));
-        Student student = studentDao.findOne(getIdUser(nameS, surnameS, userDao));
+        Student student = studentDao.findOne(GeneralServiceImpl.getIdUser(nameS, surnameS, userDao));
         List<MarkReport> allReports = markReportDao.findAll();
         if (allReports.size() != 0) {
             MarkReport markReport = allReports.stream()

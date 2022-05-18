@@ -12,6 +12,5 @@
     <title>View mentor list</title>
 </head>
 <body>
-
 </body>
 </html>

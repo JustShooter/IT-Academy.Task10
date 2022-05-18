@@ -39,12 +39,12 @@ public class AppService {
         mentorService.createTask("Course 2","Task_2");
         Set<Student> studentsOfCourse = mentorService.findStudentsOfCourse("Course 1");
         mentorService.rateAndFeedbackStudentTask("John","Lennon","Task_1", "Course 1", 8, "task not done");
-        StudentDao studentDao = new StudentDaoImpl();
+        /*StudentDao studentDao = new StudentDaoImpl();
         System.out.println(studentDao.getByName("Michael", "Korsakov"));
         System.out.println(adminService.findStudentById(5));
         System.out.println(adminService.findCourseById(1));
         System.out.println(adminService.findTaskById(1));
-        System.out.println(adminService.findReportById(1));
+        System.out.println(adminService.findReportById(1));*/
     }
 
 }

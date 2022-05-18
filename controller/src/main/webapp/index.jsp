@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
         </ul>
     <li><a href="#">Успеваемость</a>
         <ul>
-            <li><a href="#">Журнал оценок</a></li>
+            <li><a href="viewReport.jsp">Журнал оценок</a></li>
             <li><a href="#">Оценить задачу</a></li>
         </ul>
     </li>

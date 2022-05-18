@@ -10,6 +10,7 @@ import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.Task;
 import by.it.academy.task10.services.implementations.GeneralServiceImpl;
+import by.it.academy.task10.services.interfaces.GeneralService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +33,8 @@ class GeneralServiceTest {
         Student student = createFirstStudent();
         Mentor mentor = createMentorJava();
 
-        Integer currentIdStudent = GeneralServiceImpl.getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
-        Integer currentIdMentor = GeneralServiceImpl.getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
+        Integer currentIdStudent = GeneralService.getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
+        Integer currentIdMentor = GeneralService.getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
 
         Assertions.assertNotNull(currentIdStudent);
         Assertions.assertEquals(currentIdStudent, student.getId());

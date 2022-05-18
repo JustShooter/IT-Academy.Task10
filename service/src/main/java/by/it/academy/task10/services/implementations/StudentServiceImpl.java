@@ -8,6 +8,7 @@ import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.MarkReport;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.services.interfaces.GeneralService;
 import by.it.academy.task10.services.interfaces.StudentService;
 
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import java.util.Collections;
 import java.util.Set;
 
 public class StudentServiceImpl implements StudentService {
+
+    GeneralServiceImpl GeneralService = new GeneralServiceImpl();
     private final StudentDao studentDao = new StudentDaoImpl();
     private final CourseDao courseDao = new CourseDaoImpl();
     private final UserDao userDao = new UserDAOImpl();
@@ -27,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     public Set<Course> findCoursesOfStudent(String nameStudent, String surnameStudent) throws SQLException {
-        Integer idStudent = GeneralServiceImpl.getIdUser(nameStudent, surnameStudent,userDao);
+        Integer idStudent = GeneralService.getIdUser(nameStudent, surnameStudent,userDao);
         Student student = studentDao.findOne(idStudent);
         Set<Course> courses = student.getCourses();
         if (!courses.isEmpty()){
@@ -51,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Set<MarkReport> findReportsOfStudent(String nameStudent, String surnameOfStudent) throws SQLException {
-        Integer idStudent = GeneralServiceImpl.getIdUser(nameStudent, surnameOfStudent,userDao);
+        Integer idStudent = GeneralService.getIdUser(nameStudent, surnameOfStudent,userDao);
         Student student = studentDao.findOne(idStudent);
         Set<MarkReport> reports = student.getMarkReports();
         if (!reports.isEmpty()){

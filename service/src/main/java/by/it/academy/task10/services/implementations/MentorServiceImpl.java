@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class MentorServiceImpl implements MentorService {
 
+    GeneralServiceImpl GeneralService = new GeneralServiceImpl();
     private MentorDao mentorDao = new MentorDaoImpl();
     private CourseDao courseDao = new CourseDaoImpl();
     private StudentDao studentDao = new StudentDaoImpl();
@@ -20,8 +21,8 @@ public class MentorServiceImpl implements MentorService {
 
 
     public void createTask(String titleCourse, String titleTask) throws SQLException {
-        Course course = courseDao.findOne(GeneralServiceImpl.getIdCourse(titleCourse, courseDao));
-        if (GeneralServiceImpl.getIdTask(titleTask, taskDao) == null) {
+        Course course = courseDao.findOne(GeneralService.getIdCourse(titleCourse, courseDao));
+        if (GeneralService.getIdTask(titleTask, taskDao) == null) {
             Task task = taskDao.create(Task.builder()
                     .title(titleTask)
                     .build());
@@ -33,16 +34,16 @@ public class MentorServiceImpl implements MentorService {
     }
 
     public void deleteTask(String titleTask, String titleCourse) throws SQLException {
-        taskDao.deleteById(GeneralServiceImpl.getIdTask(titleTask, taskDao));
+        taskDao.deleteById(GeneralService.getIdTask(titleTask, taskDao));
     }
 
     public void rateAndFeedbackStudentTask(String nameStudent, String surnameStudent,
                                            String titleTask, String titleCourse,
                                            Integer mark, String feedback) throws SQLException {
-        Student student = studentDao.findOne(GeneralServiceImpl.getIdUser(nameStudent, surnameStudent, userDao));
-        Task task = taskDao.findOne(GeneralServiceImpl.getIdTask(titleTask, taskDao));
-        Mentor mentor = mentorDao.findOne(GeneralServiceImpl.getIdMentorOfCourse(titleCourse, courseDao));
-        Integer idReport = GeneralServiceImpl.getIdReport(nameStudent, surnameStudent, titleTask,
+        Student student = studentDao.findOne(GeneralService.getIdUser(nameStudent, surnameStudent, userDao));
+        Task task = taskDao.findOne(GeneralService.getIdTask(titleTask, taskDao));
+        Mentor mentor = mentorDao.findOne(GeneralService.getIdMentorOfCourse(titleCourse, courseDao));
+        Integer idReport = GeneralService.getIdReport(nameStudent, surnameStudent, titleTask,
                 taskDao, studentDao, markReportDao,userDao);
         if (idReport == null) {
             MarkReport markReport = MarkReport.builder()
@@ -63,7 +64,7 @@ public class MentorServiceImpl implements MentorService {
     }
 
     public Set<Student> findStudentsOfCourse(String titleCourse) throws SQLException {
-        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse,courseDao);
+        Integer idCourse = GeneralService.getIdCourse(titleCourse,courseDao);
         Course course = courseDao.findOne(idCourse);
         Set<Student> students = course.getStudents();
         if (students.size() != 0) {

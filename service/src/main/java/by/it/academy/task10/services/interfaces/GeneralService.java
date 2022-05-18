@@ -5,6 +5,7 @@ import by.it.academy.task10.dao.Interfaces.*;
 import java.sql.SQLException;
 
 public interface GeneralService {
+    
     static Integer getIdUser(String name, String surname, UserDao userDao) {
         return null;
     }

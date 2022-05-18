@@ -11,4 +11,17 @@ public class MentorDaoImpl extends GenericDaoImpl<Mentor> implements MentorDao {
         super(Mentor.class, HibernateUtil.getEntityManager());
     }
 
+    @Override
+    public Mentor getMentorByName(String name, String surname) {
+        Mentor singleResult = null;
+        try {
+            singleResult = entityManager.createQuery("select m from Mentor m " +
+                            "where m.name = :mentorName and m.surname = :mentorSurname", Mentor.class)
+                    .setParameter("mentorName", name)
+                    .setParameter("mentorSurname", surname)
+                    .getSingleResult();
+        } catch (Exception e) {
+        }
+        return singleResult;
+    }
 }

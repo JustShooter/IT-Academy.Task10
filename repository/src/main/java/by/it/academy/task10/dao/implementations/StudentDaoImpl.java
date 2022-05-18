@@ -13,11 +13,17 @@ public class StudentDaoImpl extends GenericDaoImpl<Student> implements StudentDa
     }
 
     @Override
-    public User getByName(String name, String surname) {
-        return entityManager.createQuery("select s from User s where " +
-                        "s.name = :userName and s.surname = :userSurname", User.class)
-                .setParameter("userName", name)
-                .setParameter("userSurname", surname)
-                .getSingleResult();
+    public Student getByName(String name, String surname) {
+        Student singleResult = null;
+        try {
+            singleResult = entityManager.createQuery("select s from User s where " +
+                            "s.name = :userName and s.surname = :userSurname", Student.class)
+                    .setParameter("userName", name)
+                    .setParameter("userSurname", surname)
+                    .getSingleResult();
+        } catch (Exception e) {
+
+        }
+        return singleResult;
     }
 }

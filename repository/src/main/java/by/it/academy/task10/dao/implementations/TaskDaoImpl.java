@@ -10,4 +10,17 @@ public class TaskDaoImpl extends GenericDaoImpl<Task> implements TaskDao {
     public TaskDaoImpl() {
         super(Task.class, HibernateUtil.getEntityManager());
     }
+
+    @Override
+    public Task getTaskByTitle(String title) {
+        Task title1 = null;
+        try {
+            title1 = entityManager.createQuery("select t from Task t " +
+                            "where t.title = :title", Task.class)
+                    .setParameter("title", title)
+                    .getSingleResult();
+        } catch (Exception e) {
+        }
+        return title1;
+    }
 }
