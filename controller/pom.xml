@@ -39,6 +39,7 @@
             <artifactId>tomcat-jsp-api</artifactId>
             <version>${tomcat-jsp-api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>by.it.academy.task10</groupId>
             <artifactId>service</artifactId>

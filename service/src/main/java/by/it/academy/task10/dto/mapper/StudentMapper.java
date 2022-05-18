@@ -5,7 +5,7 @@ import by.it.academy.task10.entity.Student;
 
 public class StudentMapper {
 
-    public StudentDto mapFrom(Student student) {
+    public static StudentDto mapFrom(Student student) {
         return new StudentDto(student.getId(), student.getName(),
                 student.getSurname());
     }

@@ -1,7 +1,6 @@
 package by.it.academy.task10.services.interfaces;
 
 import by.it.academy.task10.dao.interfaces.*;
-import by.it.academy.task10.interfaces.*;
 
 import java.sql.SQLException;
 

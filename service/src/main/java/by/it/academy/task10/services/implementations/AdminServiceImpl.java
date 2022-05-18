@@ -13,8 +13,6 @@ import by.it.academy.task10.dto.mapper.TaskMapper;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.implementations.*;
-import by.it.academy.task10.interfaces.*;
 import by.it.academy.task10.services.interfaces.AdminService;
 import by.it.academy.task10.services.interfaces.GeneralService;
 
