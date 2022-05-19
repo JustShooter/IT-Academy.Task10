@@ -13,12 +13,12 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "USER_TYPE",
         discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue("U")
-public abstract class User implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -30,8 +30,6 @@ public abstract class User implements Serializable {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "role")
-    private String role;
 
     @Override
     public String toString() {

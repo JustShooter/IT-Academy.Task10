@@ -2,8 +2,14 @@ package by.it.academy.task10;
 
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import by.it.academy.task10.services.implementations.StudentServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.StudentService;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.sql.SQLException;
 import java.util.Set;
@@ -11,12 +17,13 @@ import java.util.Set;
 import static by.it.academy.task10.MockConstants.*;
 import static by.it.academy.task10.MockUtils.*;
 
-class StudentServiceTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class StudentServiceTest {
 
     @Test
-    void addStudentToCourseTest() {
+    public void t2_addStudentToCourseTest() {
 
-        StudentService studentService = new StudentService();
+        StudentService studentService = new StudentServiceImpl();
 
         Student student = createFirstStudent();
         Student student2 = createSecondStudent();
@@ -43,11 +50,11 @@ class StudentServiceTest {
             Set<Course> secondStudentCourses = studentService
                     .findCoursesOfStudent(student2.getName(), student2.getSurname());
 
-            Assertions.assertTrue(firstStudentCourses.contains(courseJava));
-            Assertions.assertTrue(firstStudentCourses.contains(coursePython));
+            Assert.assertTrue(firstStudentCourses.contains(courseJava));
+            Assert.assertTrue(firstStudentCourses.contains(coursePython));
 
-            Assertions.assertFalse(secondStudentCourses.contains(coursePython));
-            Assertions.assertTrue(secondStudentCourses.contains(courseJava));
+            Assert.assertFalse(secondStudentCourses.contains(coursePython));
+            Assert.assertTrue(secondStudentCourses.contains(courseJava));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,9 +62,9 @@ class StudentServiceTest {
     }
 
     @Test
-    void findCoursesOfStudentTest() {
+    public void t1_findCoursesOfStudentTest() throws SQLException {
 
-        StudentService studentService = new StudentService();
+        StudentService studentService = new StudentServiceImpl();
 
         Student student = createFirstStudent();
         Student student2 = createSecondStudent();
@@ -65,6 +72,8 @@ class StudentServiceTest {
         Course courseJava = createCourseJava();
         Course coursePython = createCoursePython();
 
+        Set<Course> firstStudentCourses = null;
+        Set<Course> secondStudentCourses = null;
         try {
             studentService.addStudentToCourse(FIRST_STUDENT_NAME,
                     FIRST_STUDENT_SURNAME,
@@ -81,21 +90,23 @@ class StudentServiceTest {
             studentService.findCoursesOfStudent(FIRST_STUDENT_NAME,
                     FIRST_STUDENT_SURNAME);
 
-            Set<Course> firstStudentCourses = studentService
+            firstStudentCourses = studentService
                     .findCoursesOfStudent(student.getName(), student.getSurname());
 
-            Set<Course> secondStudentCourses = studentService
+            secondStudentCourses = studentService
                     .findCoursesOfStudent(student2.getName(), student2.getSurname());
-
-
-            Assertions.assertTrue(firstStudentCourses.contains(courseJava));
-            Assertions.assertTrue(firstStudentCourses.contains(coursePython));
-
-            Assertions.assertFalse(secondStudentCourses.contains(coursePython));
-            Assertions.assertTrue(secondStudentCourses.contains(courseJava));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Assert.assertTrue(firstStudentCourses.contains(courseJava));
+        Assert.assertTrue(firstStudentCourses.contains(coursePython));
+
+        Assert.assertFalse(secondStudentCourses.contains(coursePython));
+        Assert.assertTrue(secondStudentCourses.contains(courseJava));
+        adminService.deleteCourse(courseJava.getTitle());
+        adminService.deleteCourse(coursePython.getTitle());
+        adminService.deleteStudent(student.getName(), student.getSurname());
+        adminService.deleteStudent(student2.getName(), student2.getSurname());
     }
 }

@@ -1,12 +1,25 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.implementations.UserDAOImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.UserDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.entity.User;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.implementations.GeneralServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.GeneralService;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.runner.OrderWith;
+import org.junit.runners.MethodSorters;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,29 +27,29 @@ import java.util.List;
 import static by.it.academy.task10.MockConstants.*;
 import static by.it.academy.task10.MockUtils.*;
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdminServiceTest {
 
-    private final GenericDAO<Student> studentDao = new StudentDao();
-    private final GenericDAO<Mentor> mentorDao = new MentorDao();
-    private final GenericDAO<Course> courseDao = new CourseDao();
-    private final GenericDAO<User> userDao = new UserDAO();
-
-    AdminService adminService = new AdminService();
+    private final CourseDao courseDao = new CourseDaoImpl();
+    private final MentorDao mentorDao = new MentorDaoImpl();
+    private final StudentDao studentDao = new StudentDaoImpl();
+    private final UserDao userDao = new UserDAOImpl();
+    private final AdminService adminService = new AdminServiceImpl();
+    private final GeneralService generalService = new GeneralServiceImpl();
 
     @Test
-    public void createStudentTest() {
+    public void t3_createStudentTest() {
         adminService.createStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
-        Integer thisStudentId = GeneralService
+        Integer thisStudentId = generalService
                 .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
 
         try {
             Student student = studentDao.findOne(thisStudentId);
 
-            Assertions.assertNotNull(student.getId());
-            Assertions.assertEquals(thisStudentId, student.getId());
-            Assertions.assertEquals(FIRST_STUDENT_NAME, student.getName());
-            Assertions.assertEquals(FIRST_STUDENT_SURNAME, student.getSurname());
+            Assert.assertNotNull(student.getId());
+            Assert.assertEquals(thisStudentId, student.getId());
+            Assert.assertEquals(FIRST_STUDENT_NAME, student.getName());
+            Assert.assertEquals(FIRST_STUDENT_SURNAME, student.getSurname());
 
 
         } catch (SQLException e) {
@@ -45,18 +58,18 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void createMentorTest() {
+    public void t7_createMentorTest() {
         adminService.createMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
-        Integer thisMentorId = GeneralService
+        Integer thisMentorId = generalService
                 .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
 
         try {
             Student mentor = studentDao.findOne(thisMentorId);
 
-            Assertions.assertNotNull(mentor.getId());
-            Assertions.assertEquals(thisMentorId, mentor.getId());
-            Assertions.assertEquals(MENTOR_NAME_JAVA, mentor.getName());
-            Assertions.assertEquals(MENTOR_SURNAME_JAVA, mentor.getSurname());
+            Assert.assertNotNull(mentor.getId());
+            Assert.assertEquals(thisMentorId, mentor.getId());
+            Assert.assertEquals(MENTOR_NAME_JAVA, mentor.getName());
+            Assert.assertEquals(MENTOR_SURNAME_JAVA, mentor.getSurname());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,16 +77,16 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void createCourseTest() {
+    public void t5_createCourseTest() {
         adminService.createCourse(TITTLE_JAVA_COURSE);
-        Integer thisCourseId = GeneralService.getIdCourse(TITTLE_JAVA_COURSE, courseDao);
+        Integer thisCourseId = generalService.getIdCourse(TITTLE_JAVA_COURSE, courseDao);
 
         try {
             Course course = courseDao.findOne(thisCourseId);
 
-            Assertions.assertNotNull(course.getId());
-            Assertions.assertEquals(thisCourseId, course.getId());
-            Assertions.assertEquals(TITTLE_JAVA_COURSE, course.getTitle());
+            Assert.assertNotNull(course.getId());
+            Assert.assertEquals(thisCourseId, course.getId());
+            Assert.assertEquals(TITTLE_JAVA_COURSE, course.getTitle());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,20 +94,20 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void deleteStudentTest() {
+    public void t2_deleteStudentTest() {
         adminService.createStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
-        Integer idStudentBefore = GeneralService
+        Integer idStudentBefore = generalService
                 .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
 
         try {
             Student student = studentDao.findOne(idStudentBefore);
             adminService.deleteStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
 
-            Integer idStudentAfter = GeneralService
+            Integer idStudentAfter = generalService
                     .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
 
-            Assertions.assertEquals(idStudentBefore, student.getId());
-            Assertions.assertNull(idStudentAfter);
+            Assert.assertEquals(idStudentBefore, student.getId());
+            Assert.assertNull(idStudentAfter);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,18 +115,18 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void deleteMentorTest() {
+    public void t1_deleteMentorTest() {
         adminService.createMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
-        Integer idMentorBefore = GeneralService
+        Integer idMentorBefore = generalService
                 .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
         try {
             Mentor mentor = mentorDao.findOne(idMentorBefore);
-            adminService.deleteMentor(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA);
-            Integer idMentorAfter = GeneralService
+            adminService.deleteMentor(idMentorBefore);
+            Integer idMentorAfter = generalService
                     .getIdUser(MENTOR_NAME_JAVA, MENTOR_SURNAME_JAVA, userDao);
 
-            Assertions.assertEquals(idMentorBefore, mentor.getId());
-            Assertions.assertNull(idMentorAfter);
+            Assert.assertEquals(idMentorBefore, mentor.getId());
+            Assert.assertNull(idMentorAfter);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,18 +134,18 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void deleteCourseTest() {
+    public void t6_deleteCourseTest() {
         adminService.createCourse(TITTLE_JAVA_COURSE);
-        Integer idCourseBefore = GeneralService
+        Integer idCourseBefore = generalService
                 .getIdCourse(TITTLE_JAVA_COURSE, courseDao);
         try {
             Course course = courseDao.findOne(idCourseBefore);
             adminService.deleteCourse(TITTLE_JAVA_COURSE);
-            Integer idCourseAfter = GeneralService
+            Integer idCourseAfter = generalService
                     .getIdCourse(TITTLE_JAVA_COURSE, courseDao);
 
-            Assertions.assertEquals(idCourseBefore, course.getId());
-            Assertions.assertNull(idCourseAfter);
+            Assert.assertEquals(idCourseBefore, course.getId());
+            Assert.assertNull(idCourseAfter);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,26 +153,26 @@ public class AdminServiceTest {
     }
 
     @Test
-    public void getAllCoursesTest() {
+    public void t4_getAllCoursesTest() {
 
-        Course courseJava = createCourseJava();
-        Course coursePython = createCoursePython();
-        Course courseRuby = createCourseRuby();
+        createCourseJava();
+        createCoursePython();
+        createCourseRuby();
 
         List<Course> allCourses = courseDao.findAll();
 
         List<Course> getCourseList = adminService.getAllCourses();
 
-        Assertions.assertNotNull(allCourses);
-        Assertions.assertNotNull(getCourseList);
+        Assert.assertNotNull(allCourses);
+        Assert.assertNotNull(getCourseList);
 
-        Assertions.assertEquals(getCourseList, allCourses);
+        Assert.assertEquals(getCourseList, allCourses);
 
-        Assertions.assertEquals(getCourseList
+        Assert.assertEquals(getCourseList
                 .get(0).getTitle(), allCourses.get(0).getTitle());
-        Assertions.assertEquals(getCourseList
+        Assert.assertEquals(getCourseList
                 .get(1).getTitle(), allCourses.get(1).getTitle());
-        Assertions.assertEquals(getCourseList
+        Assert.assertEquals(getCourseList
                 .get(2).getTitle(), allCourses.get(2).getTitle());
     }
 }

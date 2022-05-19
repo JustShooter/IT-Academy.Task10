@@ -1,21 +1,30 @@
 package by.it.academy.task10;
 
-import by.it.academy.task10.DAO.*;
+import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MentorDaoImpl;
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.implementations.TaskDaoImpl;
+import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MentorDao;
+import by.it.academy.task10.dao.interfaces.StudentDao;
+import by.it.academy.task10.dao.interfaces.TaskDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
 
 import static by.it.academy.task10.MockConstants.*;
 
 public class MockUtils {
 
-    public static GenericDAO<Course> courseDao = new CourseDao();
-    public static GenericDAO<Task> taskDao = new TaskDao();
-    public static GenericDAO<Mentor> mentorDao = new MentorDao();
-    public static GenericDAO<Student> studentDao = new StudentDao();
+    public static CourseDao courseDao = new CourseDaoImpl();
+    public static TaskDao taskDao = new TaskDaoImpl();
+    public static MentorDao mentorDao = new MentorDaoImpl();
+    public static StudentDao studentDao = new StudentDaoImpl();
 
-    public static AdminService adminService = new AdminService();
+    public static AdminService adminService = new AdminServiceImpl();
 
 
     public static Task createFirstTask() {
@@ -52,7 +61,6 @@ public class MockUtils {
         return mentorDao.create(Mentor.builder()
                 .name(MENTOR_NAME_JAVA)
                 .surname(MENTOR_SURNAME_JAVA)
-                .role(MENTOR_ROLE_JAVA)
                 .build());
     }
 
@@ -60,7 +68,6 @@ public class MockUtils {
         return mentorDao.create(Mentor.builder()
                 .name(MENTOR_NAME_PYTHON)
                 .surname(MENTOR_SURNAME_PYTHON)
-                .role("Mentor")
                 .build());
     }
 
@@ -68,7 +75,6 @@ public class MockUtils {
         return studentDao.create(Student.builder()
                 .name(FIRST_STUDENT_NAME)
                 .surname(FIRST_STUDENT_SURNAME)
-                .role(FIRST_STUDENT_ROLE)
                 .build());
     }
 
@@ -76,8 +82,6 @@ public class MockUtils {
         return studentDao.create(Student.builder()
                 .name(SECOND_STUDENT_NAME)
                 .surname(SECOND_STUDENT_SURNAME)
-                .role(SECOND_STUDENT_ROLE)
                 .build());
-
     }
 }

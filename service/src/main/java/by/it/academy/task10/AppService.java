@@ -1,16 +1,24 @@
 package by.it.academy.task10;
 
+import by.it.academy.task10.dao.implementations.StudentDaoImpl;
+import by.it.academy.task10.dao.interfaces.StudentDao;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.implementations.MentorServiceImpl;
+import by.it.academy.task10.services.implementations.StudentServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.MentorService;
+import by.it.academy.task10.services.interfaces.StudentService;
 
 import java.sql.SQLException;
 import java.util.Set;
 
 public class AppService {
     public static void main(String[] args) throws SQLException {
-        AdminService adminService = new AdminService();
-        StudentService studentService = new StudentService();
-        MentorService mentorService = new MentorService();
+        AdminService adminService = new AdminServiceImpl();
+        StudentService studentService = new StudentServiceImpl();
+        MentorService mentorService = new MentorServiceImpl();
         adminService.createCourse("Course 1");
         adminService.createCourse("Course 2");
 
@@ -31,7 +39,12 @@ public class AppService {
         mentorService.createTask("Course 2","Task_2");
         Set<Student> studentsOfCourse = mentorService.findStudentsOfCourse("Course 1");
         mentorService.rateAndFeedbackStudentTask("John","Lennon","Task_1", "Course 1", 8, "task not done");
-
+        StudentDao studentDao = new StudentDaoImpl();
+        System.out.println(studentDao.getByName("Michael", "Korsakov"));
+        System.out.println(adminService.findStudentById(5));
+        System.out.println(adminService.findCourseById(1));
+        System.out.println(adminService.findTaskById(1));
+        System.out.println(adminService.findReportById(1));
     }
 
 }

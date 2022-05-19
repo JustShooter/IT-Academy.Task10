@@ -87,5 +87,27 @@
                                  constraintName="fk_coustu_on_student" referencedColumnNames="id"
                                  referencedTableName="user"/>
     </changeSet>
+    <changeSet id="jd2Task10-13" author="JustShooter">
+        <dropColumn columnName="role" tableName="user"/>
+    </changeSet>
+    <changeSet id="jd2Task10-14" author="JustShooter">
+        <renameTable oldTableName="user" newTableName="users"/>
+        <dropForeignKeyConstraint baseTableName="course_student" constraintName="fk_coustu_on_student"/>
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="course_student"
+                                 constraintName="fk_coustu_on_student" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+        <dropForeignKeyConstraint baseTableName="report" constraintName="FK_REPORT_ON_STUDENT"/>
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="report"
+                                 constraintName="FK_REPORT_ON_STUDENT" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+        <dropForeignKeyConstraint baseTableName="report" constraintName="FK_REPORT_ON_MENTOR"/>
+        <addForeignKeyConstraint baseColumnNames="mentor_id" baseTableName="report"
+                                 constraintName="FK_REPORT_ON_MENTOR" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+        <dropForeignKeyConstraint baseTableName="course" constraintName="FK_COURSE_ON_MENTOR"/>
+        <addForeignKeyConstraint baseColumnNames="mentor_id" baseTableName="course"
+                                 constraintName="FK_COURSE_ON_MENTOR" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
 
 </databaseChangeLog>
