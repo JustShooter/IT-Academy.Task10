@@ -34,5 +34,10 @@ public interface AdminService {
     void addMentorToCourse(String name, String surname, String title) throws SQLException;
 
     void addStudentToCourse(String name, String surname, String title) throws SQLException;
-    List<Course> getAllCourses();
+
+    List<CourseDto> getAllCourses();
+
+    List<TaskDto> getAllTasks();
+
+    List<MarkReportDto> getAllReports();
 }

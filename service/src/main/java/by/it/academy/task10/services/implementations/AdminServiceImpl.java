@@ -18,6 +18,7 @@ import by.it.academy.task10.services.interfaces.GeneralService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AdminServiceImpl implements AdminService {
@@ -109,7 +110,25 @@ public class AdminServiceImpl implements AdminService {
         studentDao.update(student);
     }
 
-    public List<Course> getAllCourses() {
-        return (courseDao.findAll() == null) ? null : courseDao.findAll();
+    public List<CourseDto> getAllCourses() {
+        return courseDao.findAll()
+                .stream()
+                .map(CourseMapper::mapFrom)
+                .collect(Collectors.toList());
     }
+
+    public List<TaskDto> getAllTasks() {
+        return taskDao.findAll()
+                .stream()
+                .map(TaskMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
+    public List<MarkReportDto> getAllReports() {
+        return markReportDao.findAll()
+                .stream()
+                .map(MarkReportMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
 }

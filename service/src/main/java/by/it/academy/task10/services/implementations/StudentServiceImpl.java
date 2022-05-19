@@ -13,6 +13,7 @@ import by.it.academy.task10.entity.MarkReport;
 import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.entity.Task;
 import by.it.academy.task10.services.interfaces.StudentService;
+import liquibase.pro.packaged.S;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -71,6 +72,18 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(StudentMapper::mapFrom)
                 .collect(Collectors.toList());
+    }
+
+    public String updateStudent(Integer id, String name, String surname) throws SQLException {
+        Student student = studentDao.findOne(id);
+        student.setName(name);
+        student.setSurname(surname);
+        Student update = studentDao.update(student);
+        if (student.equals(update)) {
+            return "STUDENT SUCCESSFULLY UPDATE";
+        } else {
+            return "UPDATE ERROR";
+        }
     }
 
 }

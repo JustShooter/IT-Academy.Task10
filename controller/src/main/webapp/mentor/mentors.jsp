@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Список студентов</title>
+    <title>Список преподавателей</title>
 
     <link rel="stylesheet" href="css/table.css">
 </head>
@@ -13,7 +13,7 @@
 <%@include file="../menu.jsp" %>
 
 <table>
-    <caption>Список студентов</caption>
+    <caption>Список преподавателей</caption>
     <tr>
         <th>Id</th>
         <th>Имя</th>
@@ -22,14 +22,14 @@
         <th></th>
         <th></th>
     </tr>
-            <c:forEach items="${allStudents}" var="mentor">
+            <c:forEach items="${allMentors}" var="mentor">
         <tr>
             <td><c:out value="${mentor.getId()}"/></td>
             <td><c:out value="${mentor.getName()}"/></td>
             <td><c:out value="${mentor.getSurname()}"/></td>
-            <td><a href="student/updateStudent.jsp?update_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Изменить</a></td>
-            <td><a href="student/newStudent.jsp?create_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Добавить</a></td>
-            <td><a href="student/deleteStudent.jsp?delete_id=${mentor.getId()}">Удалить</a></td>
+            <td><a href="mentor/updateMentor.jsp?update_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Изменить</a></td>
+            <td><a href="mentor/newmentor.jsp?create_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Добавить</a></td>
+            <td><a href="mentor/deleteMentor.jsp?delete_id=${mentor.getId()}">Удалить</a></td>
         </tr>
         </c:forEach>
 

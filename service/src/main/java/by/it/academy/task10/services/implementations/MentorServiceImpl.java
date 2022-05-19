@@ -2,11 +2,17 @@ package by.it.academy.task10.services.implementations;
 
 import by.it.academy.task10.dao.implementations.*;
 import by.it.academy.task10.dao.interfaces.*;
+import by.it.academy.task10.dto.MentorDto;
+import by.it.academy.task10.dto.StudentDto;
+import by.it.academy.task10.dto.mapper.MentorMapper;
+import by.it.academy.task10.dto.mapper.StudentMapper;
 import by.it.academy.task10.entity.*;
 import by.it.academy.task10.services.interfaces.MentorService;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MentorServiceImpl implements MentorService {
 
@@ -71,6 +77,25 @@ public class MentorServiceImpl implements MentorService {
             return null;
         }
 
+    }
+
+    public List<MentorDto> findAllMentors() {
+        return mentorDao.findAll()
+                .stream()
+                .map(MentorMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
+    public String updateMentor(Integer id, String name, String surname) throws SQLException {
+        Mentor mentor = mentorDao.findOne(id);
+        mentor.setName(name);
+        mentor.setSurname(surname);
+        Mentor update = mentorDao.update(mentor);
+        if (mentor.equals(update)) {
+            return "STUDENT SUCCESSFULLY UPDATE";
+        } else {
+            return "UPDATE ERROR";
+        }
     }
 
 }

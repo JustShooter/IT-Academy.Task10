@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Academy</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../form.css">
 </head>
 <body>
-<%@include file="menu.jsp" %>
+<%@include file="../menu.jsp" %>
 <form class="transparent">
     <div class="form-inner">
         <h3>Добавить преподавателя</h3>
@@ -18,6 +18,6 @@
         <input type="submit" value="Добавить">
     </div>
 </form>
-<%@include file="footer.jsp" %>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

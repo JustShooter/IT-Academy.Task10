@@ -18,4 +18,6 @@ public interface StudentService {
     Set<MarkReport> findReportsOfStudent(String nameStudent, String surnameOfStudent) throws SQLException;
 
     List<StudentDto> findAllStudents();
+
+    String updateStudent(Integer id, String name, String surname) throws SQLException;
 }
