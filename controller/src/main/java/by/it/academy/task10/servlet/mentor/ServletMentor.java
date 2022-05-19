@@ -1,7 +1,10 @@
 package by.it.academy.task10.servlet.mentor;
 
+import by.it.academy.task10.dto.MentorDto;
 import by.it.academy.task10.services.implementations.AdminServiceImpl;
+import by.it.academy.task10.services.implementations.MentorServiceImpl;
 import by.it.academy.task10.services.interfaces.AdminService;
+import by.it.academy.task10.services.interfaces.MentorService;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
@@ -18,6 +21,7 @@ public class ServletMentor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AdminService adminService = new AdminServiceImpl();
+        MentorService mentorService = new MentorServiceImpl();
         if ("delete".equals(getParam(request, "method"))) {
             Integer id = Integer.parseInt(getParam(request, "delete_id"));
             try {
@@ -25,6 +29,18 @@ public class ServletMentor extends HttpServlet {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        } else if ("viewcourse".equals(getParam(request, "method"))) {
+            Integer mentorId = Integer.parseInt(getParam(request, "mentor_id"));
+            MentorDto mentor = null;
+            try {
+                mentor = adminService.findMentorById(mentorId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            String mentorFullName = mentor.getName().concat(" " + mentor.getSurname());
+            request.setAttribute("mentorName" , mentorFullName);
+            request.setAttribute("courseListOfMentor", mentorService.getAllCoursesOfMentor(mentorId));
+            request.getRequestDispatcher("mentor/viewMentorCourses.jsp").forward(request, response);
         }
         request.setAttribute("mentorList", adminService.getAllMentors());
         request.getRequestDispatcher("mentor/viewMentors.jsp").forward(request, response);

@@ -43,4 +43,8 @@ public interface AdminService {
     String changeMentorRecord(Integer id, String name, String surname) throws SQLException;
 
     MentorDto findMentorById(Integer id) throws SQLException;
+
+    List<MarkReportDto> getAllReports();
+
+    List<TaskDto> getAllTasks();
 }

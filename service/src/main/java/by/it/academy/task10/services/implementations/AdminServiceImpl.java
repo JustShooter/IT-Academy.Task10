@@ -45,13 +45,14 @@ public class AdminServiceImpl implements AdminService {
     private final CourseMapper courseMapper = new CourseMapper();
     private final TaskMapper taskMapper = new TaskMapper();
     private final MarkReportMapper markReportMapper = new MarkReportMapper();
+    private final GeneralService generalService = new GeneralServiceImpl();
 
     public MarkReportDto findReportById(Integer id) throws SQLException {
         return markReportMapper.mapFrom(markReportDao.findOne(id));
     }
 
     public TaskDto findTaskById(Integer id) throws SQLException {
-        return taskMapper.mapFrom(taskDao.findOne(id));
+        return TaskMapper.mapFrom(taskDao.findOne(id));
     }
 
     public CourseDto findCourseById(Integer id) throws SQLException {
@@ -81,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void createStudent(String name, String surname) {
-        if (GeneralServiceImpl.getIdUser(name, surname, userDao) == null) {
+        if (generalService.getIdUser(name, surname, userDao) == null) {
             studentDao.create(Student.builder()
                     .name(name)
                     .surname(surname)
@@ -90,12 +91,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void deleteStudent(String name, String surname) throws SQLException {
-        Integer idUser = GeneralServiceImpl.getIdUser(name, surname, userDao);
+        Integer idUser = generalService.getIdUser(name, surname, userDao);
         studentDao.deleteById(idUser);
     }
 
     public void createMentor(String name, String surname) {
-        if (GeneralServiceImpl.getIdUser(name, surname, userDao) == null) {
+        if (generalService.getIdUser(name, surname, userDao) == null) {
             mentorDao.create(Mentor.builder()
                     .name(name)
                     .surname(surname)
@@ -108,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void createCourse(String titleCourse) {
-        if (GeneralServiceImpl.getIdCourse(titleCourse, courseDao) == null) {
+        if (generalService.getIdCourse(titleCourse, courseDao) == null) {
             courseDao.create(Course.builder()
                     .title(titleCourse)
                     .build());
@@ -116,13 +117,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void deleteCourse(String titleCourse) throws SQLException {
-        Integer idCourse = GeneralServiceImpl.getIdCourse(titleCourse, courseDao);
+        Integer idCourse = generalService.getIdCourse(titleCourse, courseDao);
         courseDao.deleteById(idCourse);
     }
 
     public void addMentorToCourse(String name, String surname, String title) throws SQLException {
-        Mentor mentor = mentorDao.findOne(GeneralServiceImpl.getIdUser(name, surname, userDao));
-        Course course = courseDao.findOne(GeneralServiceImpl.getIdCourse(title, courseDao));
+        Mentor mentor = mentorDao.findOne(generalService.getIdUser(name, surname, userDao));
+        Course course = courseDao.findOne(generalService.getIdCourse(title, courseDao));
         if (course.getMentor() == null) {
             course.setMentor(mentor);
             mentor.getCourses().add(course);
@@ -132,8 +133,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void addStudentToCourse(String name, String surname, String title) throws SQLException {
-        Student student = studentDao.findOne(GeneralServiceImpl.getIdUser(name, surname, userDao));
-        Course course = courseDao.findOne(GeneralServiceImpl.getIdCourse(title, courseDao));
+        Student student = studentDao.findOne(generalService.getIdUser(name, surname, userDao));
+        Course course = courseDao.findOne(generalService.getIdCourse(title, courseDao));
         student.getCourses().add(course);
       /*  course.getStudents().add(student);
         courseDao.update(course);*/
@@ -149,6 +150,22 @@ public class AdminServiceImpl implements AdminService {
         return mentorDao.findAll()
                 .stream()
                 .map(MentorMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MarkReportDto> getAllReports() {
+        return markReportDao.findAll()
+                .stream()
+                .map(MarkReportMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDto> getAllTasks() {
+        return taskDao.findAll()
+                .stream()
+                .map(TaskMapper::mapFrom)
                 .collect(Collectors.toList());
     }
 }

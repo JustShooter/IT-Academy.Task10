@@ -18,7 +18,8 @@ import java.util.List;
 
 public class GeneralServiceImpl implements GeneralService {
 
-    public static Integer getIdUser(String name, String surname, UserDao userDao) {
+    @Override
+    public Integer getIdUser(String name, String surname, UserDao userDao) {
         return userDao.findAll().stream()
                 .filter(st -> name.equals(st.getName()) && surname.equals(st.getSurname()))
                 .map(User::getId)
@@ -26,8 +27,8 @@ public class GeneralServiceImpl implements GeneralService {
                 .orElse(null);
     }
 
-
-    public static Integer getIdTask(String taskTitle, TaskDao taskDao) {
+    @Override
+    public Integer getIdTask(String taskTitle, TaskDao taskDao) {
         return taskDao.findAll().stream()
                 .filter(t -> taskTitle.equals(t.getTitle()))
                 .map(Task::getId)
@@ -35,7 +36,8 @@ public class GeneralServiceImpl implements GeneralService {
                 .orElse(null);
     }
 
-    public static Integer getIdCourse(String courseTitle, CourseDao courseDao) {
+    @Override
+    public Integer getIdCourse(String courseTitle, CourseDao courseDao) {
         return courseDao.findAll().stream()
                 .filter(c -> courseTitle.equals(c.getTitle()))
                 .map(Course::getId)
@@ -43,7 +45,8 @@ public class GeneralServiceImpl implements GeneralService {
                 .orElse(null);
     }
 
-    public static Integer getIdMentorOfCourse(String courseTitle, CourseDao courseDao) {
+    @Override
+    public Integer getIdMentorOfCourse(String courseTitle, CourseDao courseDao) {
         return courseDao.findAll().stream()
                 .filter(m -> courseTitle.equals(m.getTitle()))
                 .findFirst()
@@ -52,7 +55,8 @@ public class GeneralServiceImpl implements GeneralService {
                 .orElse(null);
     }
 
-    public static Integer getIdReport(String nameS, String surnameS,
+    @Override
+    public Integer getIdReport(String nameS, String surnameS,
                                       String titleT,
                                       TaskDao taskDao, StudentDao studentDao,
                                       MarkReportDao markReportDao,
@@ -60,11 +64,11 @@ public class GeneralServiceImpl implements GeneralService {
         Task task = taskDao.findOne(getIdTask(titleT, taskDao));
         Student student = studentDao.findOne(getIdUser(nameS, surnameS, userDao));
         List<MarkReport> allReports = markReportDao.findAll();
-        if (allReports.size() != 0) {
+        if (!allReports.isEmpty()) {
             MarkReport markReport = allReports.stream()
                     .filter(r -> r.getStudent().equals(student) && r.getTask().equals(task))
                     .findAny().orElse(null);
-            return markReport.getId();
+            return (markReport == null) ? null : markReport.getId();
         } else {
             return null;
         }

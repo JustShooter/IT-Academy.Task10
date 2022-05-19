@@ -23,6 +23,7 @@
         <th>Id</th>
         <th>Имя</th>
         <th>Фамилия</th>
+        <th>Курсы</th>
         <th>Изменить</th>
         <th>Удалить</th>
     </tr>
@@ -31,13 +32,14 @@
             <td><c:out value="${mentor.getId()}"/></td>
             <td><c:out value="${mentor.getName()}"/></td>
             <td><c:out value="${mentor.getSurname()}"/></td>
+            <td><a href="viewAllMentors?method=viewcourse&mentor_id=${mentor.getId()}">Курсы</a> </td> <%-- Может тут вывести таблицу курсов? Будет ли красиво? --%>
             <td><a href="mentor/edit.jsp?edit_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Изменить</a></td>
             <td><a href="viewAllMentors?method=delete&delete_id=${mentor.getId()}">Удалить</a></td>
         </tr>
     </c:forEach>
 </table>
 </body>
-<form action="../index.jsp">
-    <input type="button" value="На главную!">
+<form action="index.jsp">
+    <input type="submit" value="На главную!">
 </form>
 </html>

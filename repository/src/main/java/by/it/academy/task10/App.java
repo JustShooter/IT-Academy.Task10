@@ -15,8 +15,8 @@ public class App {
         StudentDao studentDao = new StudentDaoImpl();
         MentorDao mentorDao = new MentorDaoImpl();
         CourseDao courseDao = new CourseDaoImpl();
-
-  /*      courseDao.create(Course.builder()
+/*
+        courseDao.create(Course.builder()
                 .title("C++")
                 .build());
         courseDao.create(Course.builder()
@@ -26,9 +26,8 @@ public class App {
                 .title("Python")
                 .build());*/
 
-        System.out.println(courseDao.getCourceByTitle("C#").toString());
 
-    /*    studentDao.create(Student.builder()
+     /*   studentDao.create(Student.builder()
                 .name("John")
                 .surname("Weak")
                 .build());
@@ -53,13 +52,12 @@ public class App {
                 .name("Gena")
                 .surname("Vlasik")
                 .build());
-
+*/
         mentorDao.create(Mentor.builder()
                 .name("Bill")
                 .surname("Gates")
                 .build());
 
-        */
 
 //        List<Student> studentList = manager.createQuery("from " + Student.class.getName()).getResultList();
 //        Student std = studentList.stream()

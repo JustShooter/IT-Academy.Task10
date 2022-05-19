@@ -15,5 +15,5 @@ public class CourseDto implements Serializable {
 
     private Integer id;
     private String title;
-    private MentorDto mentor;
+    private Integer mentorId;
 }

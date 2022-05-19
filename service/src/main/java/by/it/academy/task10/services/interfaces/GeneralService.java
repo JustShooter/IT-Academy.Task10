@@ -9,28 +9,18 @@ import by.it.academy.task10.dao.interfaces.UserDao;
 import java.sql.SQLException;
 
 public interface GeneralService {
-    static Integer getIdUser(String name, String surname, UserDao userDao) {
-        return null;
-    }
+    Integer getIdUser(String name, String surname, UserDao userDao) ;
 
-    static Integer getIdTask(String taskTitle, TaskDao taskDao) {
-        return null;
-    }
+    Integer getIdTask(String taskTitle, TaskDao taskDao);
 
-    static Integer getIdCourse(String courseTitle, CourseDao courseDao) {
-        return null;
-    }
+    Integer getIdCourse(String courseTitle, CourseDao courseDao);
 
-    static Integer getIdMentorOfCourse(String courseTitle, CourseDao courseDao) {
-        return null;
-    }
+    Integer getIdMentorOfCourse(String courseTitle, CourseDao courseDao);
 
-    static Integer getIdReport(String nameS, String surnameS,
+    Integer getIdReport(String nameS, String surnameS,
                                String titleT,
                                TaskDao taskDao, StudentDao studentDao,
                                MarkReportDao markReportDao,
-                               UserDao userDao) throws SQLException {
-        return null;
-    }
+                               UserDao userDao) throws SQLException;
 }
 
