@@ -13,11 +13,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Edit mentor</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <%@include file="../menu.jsp" %>
-<form method="post" action="../mentors" onsubmit="return validate();">
+<form method="post" action="mentors">
     <table>
         <tr>
             <td>Имя</td>
