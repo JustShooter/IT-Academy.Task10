@@ -2,18 +2,17 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
-<html>
+<html xml:lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <title>Список курсов</title>
-
-    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%@include file="../menu.jsp" %>
 
 <table>
-    <caption>Список курсов</caption>
+    <caption>Список курсов <c:if test="${mentorName != null}">${mentorName}</c:if></caption>
     <tr>
         <th>Id</th>
         <th>Название</th>

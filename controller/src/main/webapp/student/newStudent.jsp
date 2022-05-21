@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Создать студента</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%@include file="../menu.jsp" %>

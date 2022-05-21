@@ -69,16 +69,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public String changeMentorRecord(Integer id, String name, String surname) throws SQLException {
+    public Boolean changeMentorRecord(Integer id, String name, String surname) throws SQLException {
         Mentor mentor = mentorDao.findOne(id);
         mentor.setName(name);
         mentor.setSurname(surname);
         Mentor update = mentorDao.update(mentor);
-        if (mentor.equals(update)) {
-            return "UPDATE SUCCESS";
-        } else {
-            return "UPDATE ERROR";
-        }
+        return update.getName().equals(mentor.getName())
+                && update.getSurname().equals(mentor.getSurname());
     }
 
     public void createStudent(String name, String surname) {

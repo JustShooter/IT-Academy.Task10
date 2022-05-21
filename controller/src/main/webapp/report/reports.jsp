@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Список оценок</title>
-
-    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%@include file="../menu.jsp" %>

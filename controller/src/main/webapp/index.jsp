@@ -1,6 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html xml:lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <title>Academy</title>

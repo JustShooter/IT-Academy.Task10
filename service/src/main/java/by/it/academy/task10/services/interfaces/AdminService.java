@@ -40,7 +40,7 @@ public interface AdminService {
 
     List<MentorDto> getAllMentors();
 
-    String changeMentorRecord(Integer id, String name, String surname) throws SQLException;
+    Boolean changeMentorRecord(Integer id, String name, String surname) throws SQLException;
 
     MentorDto findMentorById(Integer id) throws SQLException;
 
