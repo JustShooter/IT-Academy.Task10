@@ -1,14 +1,18 @@
 package by.it.academy.task10.services.implementations;
 
 import by.it.academy.task10.dao.implementations.CourseDaoImpl;
+import by.it.academy.task10.dao.implementations.MarkReportDaoImpl;
 import by.it.academy.task10.dao.implementations.StudentDaoImpl;
 import by.it.academy.task10.dao.implementations.UserDAOImpl;
 import by.it.academy.task10.dao.interfaces.CourseDao;
+import by.it.academy.task10.dao.interfaces.MarkReportDao;
 import by.it.academy.task10.dao.interfaces.StudentDao;
 import by.it.academy.task10.dao.interfaces.UserDao;
 import by.it.academy.task10.dto.CourseDto;
+import by.it.academy.task10.dto.MarkReportDto;
 import by.it.academy.task10.dto.StudentDto;
 import by.it.academy.task10.dto.mapper.CourseMapper;
+import by.it.academy.task10.dto.mapper.MarkReportMapper;
 import by.it.academy.task10.dto.mapper.StudentMapper;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.MarkReport;
@@ -28,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
     private final CourseDao courseDao = new CourseDaoImpl();
     private final UserDao userDao = new UserDAOImpl();
     private final GeneralService generalService = new GeneralServiceImpl();
+    private final MarkReportDao markReportDao = new MarkReportDaoImpl();
 
     public void addStudentToCourse(String name, String surname, String title) throws SQLException{
         AdminServiceImpl adminService = new AdminServiceImpl();
@@ -35,9 +40,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
     public Set<Course> findCoursesOfStudent(Integer idStudent) throws SQLException {
-
         Student student = studentDao.findOne(idStudent);
         Set<Course> courses = student.getCourses();
         if (!courses.isEmpty()){
@@ -46,6 +49,13 @@ public class StudentServiceImpl implements StudentService {
             return Collections.emptySet();
         }
 
+    }
+
+    public void updateTaskReport(Integer id, String feedback, Integer mark) throws SQLException {
+        MarkReport one = markReportDao.findOne(id);
+        one.setFeedback(feedback);
+        one.setMark(mark);
+        markReportDao.update(one);
     }
 
     public Set<Task> findTasksOfCourse(String titleCourse) throws SQLException {
@@ -60,15 +70,17 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    public Set<MarkReport> findReportsOfStudent(String nameStudent, String surnameOfStudent) throws SQLException {
-        Integer idStudent = generalService.getIdUser(nameStudent, surnameOfStudent,userDao);
-        Student student = studentDao.findOne(idStudent);
-        Set<MarkReport> reports = student.getMarkReports();
-        if (!reports.isEmpty()){
-            return reports;
-        }else {
-            return Collections.emptySet();
+    public List<MarkReportDto> findReportsOfStudent(String nameStudent, String surnameOfStudent) {
+        Integer idStudent = generalService.getIdUser(nameStudent, surnameOfStudent, userDao);
+        Student student = null;
+        try {
+            student = studentDao.findOne(idStudent);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return student.getMarkReports().stream()
+                .map(MarkReportMapper::mapFrom)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -97,10 +109,11 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentDao.findOne(id);
         student.setName(name);
         student.setSurname(surname);
-        Student studentUpdate = studentDao.update(student);
-        boolean b = studentUpdate.getName().equals(student.getName())
-                && studentUpdate.getSurname().equals(student.getSurname());
-        return b;
-
+        Student update = studentDao.update(student);
+        if (student.equals(update)) {
+            return "STUDENT SUCCESSFULLY UPDATE";
+        } else {
+            return "UPDATE ERROR";
+        }
     }
 }

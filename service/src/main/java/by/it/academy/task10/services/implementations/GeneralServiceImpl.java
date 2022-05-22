@@ -18,13 +18,9 @@ import java.util.List;
 
 public class GeneralServiceImpl implements GeneralService {
 
-    @Override
     public Integer getIdUser(String name, String surname, UserDao userDao) {
-        return userDao.findAll().stream()
-                .filter(st -> name.equals(st.getName()) && surname.equals(st.getSurname()))
-                .map(User::getId)
-                .findFirst()
-                .orElse(null);
+        return userDao.getUserByName(name, surname) != null ?
+                userDao.getUserByName(name, surname).getId() : null;
     }
 
     @Override

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet(name = "mentorServlet", value = "/mentors")
+  @WebServlet(name = "mentorServlet", value = "/mentors")
 public class MentorServlet extends HttpServlet {
 
     public static final String VALIDATE = "ИЗМЕНЕНИЯ ВНЕСЕНЫ УСПЕШНО";
