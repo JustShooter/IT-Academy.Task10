@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Список курсов</title>
-
-    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
 <%@include file="../menu.jsp" %>

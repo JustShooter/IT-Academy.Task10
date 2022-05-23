@@ -10,6 +10,7 @@
 <html xml:lang="ru">
 <head>
     <title>Delete mentor</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
 <h1>Hello Delete</h1>

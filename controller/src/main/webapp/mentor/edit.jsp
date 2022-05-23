@@ -5,16 +5,19 @@
   Time: 17:08
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html xml:lang="ru">
 <head>
+    <meta charset="UTF-8"/>
     <title>Edit mentor</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
-<form method="post" action="../viewAllMentors" onsubmit="return validate();">
+<%@include file="../menu.jsp" %>
+<form method="post" action="../mentors">
     <table>
         <tr>
             <td>Имя</td>
@@ -35,8 +38,9 @@
                 <c:out value="${UpdateErrorMsg}"/>
             </c:if>
         </h3>
-        <h1><a href="../viewAllMentors">Назад</a></h1>
+        <h1><a href="mentors">Назад</a></h1>
     </div>
 </form>
+<%@include file="../footer.jsp" %>
 </body>
 </html>
