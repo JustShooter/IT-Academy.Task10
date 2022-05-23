@@ -11,7 +11,7 @@
 <body onpageshow="success()">
 <%@include file="../menu.jsp" %>
 <table>
-    <caption>Список курсов</caption>
+    <caption>Список оценок</caption>
     <tr>
         <th>Id</th>
         <th>Оценка</th>
@@ -31,11 +31,9 @@
             <td><c:out value="${report.getStudent().getName()}"/></td>
             <td><c:out value="${report.getStudent().getSurname()}"/></td>
             <td><c:out value="${report.getTask().getTitle()}"/></td>
-            <td><a href="${pageContext.request.contextPath}/report/refactorReport.jsp?value=change&id=${report.getId()}&name=${report.getStudent().getName()}&surname=${report.getStudent().getSurname()}
-            &feedback=${report.getFeedback()}&mark=${report.getMark()}&task=${report.getTask().getTitle()}">Изменить</a>
+            <td><a href="${pageContext.request.contextPath}/report/refactorReport.jsp?value=change&id=${report.getId()}&name=${report.getStudent().getName()}&surname=${report.getStudent().getSurname()}&feedback=${report.getFeedback()}&mark=${report.getMark()}&task=${report.getTask().getTitle()}">Изменить</a>
             </td>
-            <td><a href="#">Добавить</a></td>
-            <td><a href="#">Удалить</a></td>
+            <td><a href="${pageContext.request.contextPath}/reportChange?value=delete&id=${report.getId()}&name=${report.getStudent().getName()}&surname=${report.getStudent().getSurname()}">Удалить</a></td>
         </tr>
     </c:forEach>
 

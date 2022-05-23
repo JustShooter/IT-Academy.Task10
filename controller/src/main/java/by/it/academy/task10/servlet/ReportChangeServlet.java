@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @WebServlet(name = "reportChangeServlet", value = "/reportChange")
@@ -22,17 +21,26 @@ public class ReportChangeServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(getParam(req, "id"));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.parseInt(getParam(req, "id"));
-        String feedback = getParam(req, "feedback");
-        Integer mark = Integer.parseInt(getParam(req, "mark"));
-        studentService.updateTaskReport(id, feedback, mark);
         String name = getParam(req, "name");
         String fio = getParam(req, "fio");
-        List<MarkReportDto> reportsOfStudent = studentService.findReportsOfStudent(name, fio);
+        studentService.deleteTaskReport(id);
+        req.getRequestDispatcher("report/viewReport.jsp?value=Оценить Студента").forward(req, resp);
+    }
+
+    @SneakyThrows
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer id = Integer.parseInt(getParam(req, "id"));
+        Integer mark = Integer.parseInt(getParam(req, "mark"));
+        String feedback = getParam(req, "feedback");
+        studentService.updateTaskReport(id, feedback, mark);
+        req.getRequestDispatcher("report/viewReport.jsp").forward(req, resp);
+       /* List<MarkReportDto> reportsOfStudent = studentService.findReportsOfStudent(name, fio);
         req.setAttribute("allReports", reportsOfStudent);
-        req.getRequestDispatcher("report/reports.jsp").forward(req, resp);
+        String name = getParam(req, "name");
+        String fio = getParam(req, "fio");*/
     }
 
     private String getParam(HttpServletRequest req, String nameField) {

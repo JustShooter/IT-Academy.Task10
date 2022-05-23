@@ -11,13 +11,12 @@ import by.it.academy.task10.dao.interfaces.UserDao;
 import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.dto.MarkReportDto;
 import by.it.academy.task10.dto.StudentDto;
+import by.it.academy.task10.dto.TaskDto;
 import by.it.academy.task10.dto.mapper.CourseMapper;
 import by.it.academy.task10.dto.mapper.MarkReportMapper;
 import by.it.academy.task10.dto.mapper.StudentMapper;
-import by.it.academy.task10.entity.Course;
-import by.it.academy.task10.entity.MarkReport;
-import by.it.academy.task10.entity.Student;
-import by.it.academy.task10.entity.Task;
+import by.it.academy.task10.dto.mapper.TaskMapper;
+import by.it.academy.task10.entity.*;
 import by.it.academy.task10.services.interfaces.GeneralService;
 import by.it.academy.task10.services.interfaces.StudentService;
 
@@ -48,8 +47,21 @@ public class StudentServiceImpl implements StudentService {
         }else {
             return Collections.emptySet();
         }
-
     }
+
+    public List<CourseDto> findCourseOfStudentMy(String nameStudent, String surnameStudent) {
+        Integer idStudent = generalService.getIdUser(nameStudent, surnameStudent, userDao);
+        Student student = null;
+        try {
+            student = studentDao.findOne(idStudent);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return student.getCourses().stream()
+                .map(CourseMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
 
     public void updateTaskReport(Integer id, String feedback, Integer mark) throws SQLException {
         MarkReport one = markReportDao.findOne(id);
@@ -70,14 +82,22 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-    public List<MarkReportDto> findReportsOfStudent(String nameStudent, String surnameOfStudent) {
-        Integer idStudent = generalService.getIdUser(nameStudent, surnameOfStudent, userDao);
-        Student student = null;
+    public List<TaskDto> findTasksOfCourseMy(String titleCourse) {
+        Integer idCourse = generalService.getIdCourse(titleCourse,courseDao);
+        Course course = null;
         try {
-            student = studentDao.findOne(idStudent);
+            course = courseDao.findOne(idCourse);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return course.getTasks().stream()
+                .map(TaskMapper::mapFrom)
+                .collect(Collectors.toList());
+    }
+
+    public List<MarkReportDto> findReportsOfStudent(String nameStudent, String surnameOfStudent) throws SQLException {
+        Integer idStudent = generalService.getIdUser(nameStudent, surnameOfStudent, userDao);
+        Student student = studentDao.findOne(idStudent);
         return student.getMarkReports().stream()
                 .map(MarkReportMapper::mapFrom)
                 .collect(Collectors.toList());
@@ -89,6 +109,19 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(StudentMapper::mapFrom)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteTaskReport(Integer id) {
+        try {
+            MarkReport one = markReportDao.findOne(id);
+            one.setStudent(null);
+            one.setTask(null);
+            one.setMentor(null);
+            markReportDao.update(one);
+            markReportDao.deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

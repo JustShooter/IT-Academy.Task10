@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <td>Оценка</td>
-            <td><input type="number" name="mark" value="${param.get("mark")}"></td>
+            <td><input type="text" name="mark" value="${param.get("mark")}"></td>
         </tr>
         <tr>
             <td><input type="submit" name="change" value="update"></td>

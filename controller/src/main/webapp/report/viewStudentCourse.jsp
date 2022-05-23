@@ -10,9 +10,9 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
-<form class="transparent" method="post" action="${pageContext.request.contextPath}/reports">
+<form class="transparent" method="post" action="${pageContext.request.contextPath}/reportCreate">
     <div class="form-inner">
-        <h3>Журнал Студента</h3>
+        <h3>оценить студента</h3>
         <p class="name">Имя</p><input type="text" name="name">
         <p class="name">Фамилия</p><input type="text" name="fio">
 
