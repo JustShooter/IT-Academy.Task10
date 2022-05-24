@@ -22,7 +22,7 @@ public interface AdminService {
 
     void createStudent(String name, String surname);
 
-    void deleteStudent(String name, String surname) throws SQLException;
+    void deleteStudent(Integer idUser) throws SQLException;
 
     void createMentor(String name, String surname);
 

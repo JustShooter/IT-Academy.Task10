@@ -87,8 +87,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    public void deleteStudent(String name, String surname) throws SQLException {
-        Integer idUser = generalService.getIdUser(name, surname, userDao);
+    public void deleteStudent(Integer idUser) throws SQLException {
         studentDao.deleteById(idUser);
     }
 

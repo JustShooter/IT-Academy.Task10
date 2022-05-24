@@ -1,6 +1,9 @@
 package by.it.academy.task10.servlet;
 
+import by.it.academy.task10.dto.StudentDto;
+import by.it.academy.task10.services.implementations.AdminServiceImpl;
 import by.it.academy.task10.services.implementations.StudentServiceImpl;
+import by.it.academy.task10.services.interfaces.AdminService;
 import by.it.academy.task10.services.interfaces.StudentService;
 import liquibase.repackaged.org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +23,31 @@ public class StudentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         StudentService studentService = new StudentServiceImpl();
+        AdminService adminService = new AdminServiceImpl();
+        if ("delete".equals(getParam(req, "method"))) {
+            Integer id = Integer.parseInt(getParam(req, "delete_id"));
+            try {
+                adminService.deleteStudent(id);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if ("coursesOfStudent".equals(getParam(req, "method"))) {
+            Integer studentId = Integer.parseInt(getParam(req, "student_id"));
+            StudentDto studentDto = null;
+            try {
+                studentDto = adminService.findStudentById(studentId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            String stName = studentDto.getName().concat(" " + studentDto.getSurname());
+            req.setAttribute("studentName", stName);
+            try {
+                req.setAttribute("allCourses", studentService.findCoursesOfStudent(studentId));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            req.getRequestDispatcher("student/coursesOfStudent.jsp").forward(req, resp);
+        }
         req.setAttribute("allStudents", studentService.findAllStudents());
         req.getRequestDispatcher("student/students.jsp").forward(req, resp);
 
@@ -27,26 +55,7 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("btn_edit") != null) {
-            StudentService studentService = new StudentServiceImpl();
-            String name = getParam(req, "nameString");
-            String surname = getParam(req, "surnameString");
-            Integer hidden_id = Integer.parseInt(getParam(req, "hidden_id"));
-            String updateValidate = null;
-            try {
-                updateValidate = studentService.updateStudent(hidden_id, name, surname);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
 
-            if ("STUDENT SUCCESSFULLY UPDATE".equals(updateValidate)) {
-                req.setAttribute("UpdateSuccessMsg", updateValidate);
-                doGet(req, resp);
-            } else {
-                req.setAttribute("UpdateErrorMsg", updateValidate);
-                req.getRequestDispatcher("..student/updateStudent.jsp").forward(req, resp);
-            }
-        }
 
     }
 

@@ -6,7 +6,9 @@ import by.it.academy.task10.dao.implementations.UserDAOImpl;
 import by.it.academy.task10.dao.interfaces.CourseDao;
 import by.it.academy.task10.dao.interfaces.StudentDao;
 import by.it.academy.task10.dao.interfaces.UserDao;
+import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.dto.StudentDto;
+import by.it.academy.task10.dto.mapper.CourseMapper;
 import by.it.academy.task10.dto.mapper.StudentMapper;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.MarkReport;
@@ -34,9 +36,8 @@ public class StudentServiceImpl implements StudentService {
 
 
 
-    public Set<Course> findCoursesOfStudent(String nameStudent, String surnameStudent) throws SQLException {
+    public Set<Course> findCoursesOfStudent(Integer idStudent) throws SQLException {
 
-        Integer idStudent = generalService.getIdUser(nameStudent, surnameStudent,userDao);
         Student student = studentDao.findOne(idStudent);
         Set<Course> courses = student.getCourses();
         if (!courses.isEmpty()){
@@ -79,15 +80,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String updateStudent(Integer id, String name, String surname) throws SQLException {
+    public Set<CourseDto> getCoursesOfStudent(Integer studentId) throws SQLException {
+        Set<Course> coursesStudent = this.findCoursesOfStudent(studentId);
+        if (coursesStudent == null) {
+            return Collections.emptySet();
+        } else {
+            return coursesStudent
+                    .stream()
+                    .map(CourseMapper::mapFrom)
+                    .collect(Collectors.toSet());
+        }
+    }
+
+    @Override
+    public Boolean updateStudent(Integer id, String name, String surname) throws SQLException {
         Student student = studentDao.findOne(id);
         student.setName(name);
         student.setSurname(surname);
-        Student update = studentDao.update(student);
-        if (student.equals(update)) {
-            return "STUDENT SUCCESSFULLY UPDATE";
-        } else {
-            return "UPDATE ERROR";
-        }
+        Student studentUpdate = studentDao.update(student);
+        boolean b = studentUpdate.getName().equals(student.getName())
+                && studentUpdate.getSurname().equals(student.getSurname());
+        return b;
+
     }
 }

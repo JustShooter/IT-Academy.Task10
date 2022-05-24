@@ -1,5 +1,6 @@
 package by.it.academy.task10.services.interfaces;
 
+import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.dto.StudentDto;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.MarkReport;
@@ -12,7 +13,7 @@ import java.util.Set;
 public interface StudentService {
     void addStudentToCourse(String name, String surname, String title) throws SQLException;
 
-    Set<Course> findCoursesOfStudent(String nameStudent, String surnameStudent) throws SQLException;
+    Set<Course> findCoursesOfStudent(Integer idStudent) throws SQLException;
 
     Set<Task> findTasksOfCourse(String titleCourse) throws SQLException;
 
@@ -20,5 +21,7 @@ public interface StudentService {
 
     List<StudentDto> findAllStudents();
 
-    String updateStudent(Integer id, String name, String surname) throws SQLException;
+    Set<CourseDto> getCoursesOfStudent(Integer studentId) throws SQLException;
+
+    Boolean updateStudent(Integer id, String name, String surname) throws SQLException;
 }
