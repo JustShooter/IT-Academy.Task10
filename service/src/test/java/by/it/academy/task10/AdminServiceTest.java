@@ -102,7 +102,7 @@ public class AdminServiceTest {
 
         try {
             Student student = studentDao.findOne(idStudentBefore);
-            adminService.deleteStudent(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME);
+            adminService.deleteStudent(idStudentBefore);
 
             Integer idStudentAfter = generalService
                     .getIdUser(FIRST_STUDENT_NAME, FIRST_STUDENT_SURNAME, userDao);
