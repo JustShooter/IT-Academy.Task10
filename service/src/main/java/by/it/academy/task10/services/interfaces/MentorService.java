@@ -2,7 +2,6 @@ package by.it.academy.task10.services.interfaces;
 
 import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.dto.MentorDto;
-import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Student;
 
 import java.sql.SQLException;

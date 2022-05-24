@@ -10,11 +10,25 @@ import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
 
+import java.sql.SQLException;
+
 public class App {
     public static void main(String[] args) {
         StudentDao studentDao = new StudentDaoImpl();
         MentorDao mentorDao = new MentorDaoImpl();
         CourseDao courseDao = new CourseDaoImpl();
+
+        mentorDao.update(Mentor.builder()
+                .name("Alex")
+                .surname("Lex5")
+                .id(14)
+                .build());
+        try {
+            System.out.println(mentorDao.findOne(14).getSurname());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 /*
         courseDao.create(Course.builder()
                 .title("C++")
@@ -53,12 +67,12 @@ public class App {
                 .surname("Vlasik")
                 .build());
 */
-        mentorDao.create(Mentor.builder()
+   /*     mentorDao.create(Mentor.builder()
                 .name("Bill")
                 .surname("Gates")
                 .build());
 
-
+*/
 //        List<Student> studentList = manager.createQuery("from " + Student.class.getName()).getResultList();
 //        Student std = studentList.stream()
 //                .filter(student -> student.getName().equals("Gena")

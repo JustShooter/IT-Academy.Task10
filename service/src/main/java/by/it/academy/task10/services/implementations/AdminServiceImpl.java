@@ -28,6 +28,7 @@ import by.it.academy.task10.entity.Student;
 import by.it.academy.task10.services.interfaces.AdminService;
 import by.it.academy.task10.services.interfaces.GeneralService;
 
+import javax.persistence.NoResultException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,15 +36,14 @@ import java.util.stream.Collectors;
 
 public class AdminServiceImpl implements AdminService {
 
+    public static final String MENTOR_EXIST = "Преподаватель с такими данными уже существует!";
+    public static final String WRONG_ID = "Не верно указано ID";
     private final StudentDao studentDao = new StudentDaoImpl();
     private final MentorDao mentorDao = new MentorDaoImpl();
     private final CourseDao courseDao = new CourseDaoImpl();
     private final UserDao userDao = new UserDAOImpl();
     private final TaskDao taskDao = new TaskDaoImpl();
     private final MarkReportDao markReportDao = new MarkReportDaoImpl();
-    private final StudentMapper userMapper = new StudentMapper();
-    private final CourseMapper courseMapper = new CourseMapper();
-    private final TaskMapper taskMapper = new TaskMapper();
     private final MarkReportMapper markReportMapper = new MarkReportMapper();
     private final GeneralService generalService = new GeneralServiceImpl();
 
@@ -56,29 +56,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public CourseDto findCourseById(Integer id) throws SQLException {
-        return courseMapper.mapFrom(courseDao.findOne(id));
+        return CourseMapper.mapFrom(courseDao.findOne(id));
     }
 
     public StudentDto findStudentById(Integer id) throws SQLException {
-        return userMapper.mapFrom(studentDao.findOne(id));
+        return StudentMapper.mapFrom(studentDao.findOne(id));
     }
 
     @Override
     public MentorDto findMentorById(Integer id) throws SQLException {
         return MentorMapper.mapFrom(mentorDao.findOne(id));
-    }
-
-    @Override
-    public String changeMentorRecord(Integer id, String name, String surname) throws SQLException {
-        Mentor mentor = mentorDao.findOne(id);
-        mentor.setName(name);
-        mentor.setSurname(surname);
-        Mentor update = mentorDao.update(mentor);
-        if (mentor.equals(update)) {
-            return "UPDATE SUCCESS";
-        } else {
-            return "UPDATE ERROR";
-        }
     }
 
     public void createStudent(String name, String surname) {
@@ -141,8 +128,11 @@ public class AdminServiceImpl implements AdminService {
         studentDao.update(student);
     }
 
-    public List<Course> getAllCourses() {
-        return (courseDao.findAll() == null) ? null : courseDao.findAll();
+    public List<CourseDto> getAllCourses() {
+        return courseDao.findAll()
+                .stream()
+                .map(CourseMapper::mapFrom)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -167,5 +157,37 @@ public class AdminServiceImpl implements AdminService {
                 .stream()
                 .map(TaskMapper::mapFrom)
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public Boolean changeMentorRecord(MentorDto mentorDto) throws SQLException {
+        try {
+            mentorDao.findOne(mentorDto.getId());
+        } catch (SQLException e) {
+            throw new SQLException(WRONG_ID);
+        }
+        Mentor mentor = mentorDao.update(Mentor.builder()
+                .name(mentorDto.getName())
+                .surname(mentorDto.getSurname())
+                .id(mentorDto.getId())
+                .build());
+        return mentor.getName().equals(mentorDto.getName())
+                && mentor.getSurname().equals(mentorDto.getSurname());
+    }
+
+    @Override
+    public boolean addNewMentor(MentorDto mentorDto) throws SQLException {
+        try {
+            mentorDao.getMentorIdByFullName(mentorDto.getName(), mentorDto.getSurname());
+            throw new SQLException(MENTOR_EXIST);
+        } catch (NoResultException e) {
+            Mentor mentor = mentorDao.create(Mentor.builder()
+                    .name(mentorDto.getName())
+                    .surname(mentorDto.getSurname())
+                    .build());
+            return mentor.getName().equals(mentorDto.getName())
+                    && mentor.getSurname().equals(mentorDto.getSurname());
+        }
     }
 }
