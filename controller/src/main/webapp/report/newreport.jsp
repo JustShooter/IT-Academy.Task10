@@ -13,6 +13,10 @@
 <form class="transparent" method="get" action="${pageContext.request.contextPath}/reports">
     <div class="form-inner">
         <h3>Оценить студента</h3>
+        <p class="name">Имя студента</p><output>"${param.get("student_name")}"</output>
+        <p class="name">Фамилия студента</p><output>"${param.get("student_surname")}"</output>
+        <p class="name">Курс</p><output>"${param.get("course_title")}"</output>
+        <p class="name">Задание</p><output>"${param.get("task_title")}"</output>
         <p class="name">Введите оценку</p><input type="text" name="mark">
         <p class="name">Комментарий</p><input type="text" name="feedback">
 

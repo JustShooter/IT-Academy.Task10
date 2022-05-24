@@ -27,27 +27,31 @@ import java.util.Optional;
 @WebServlet(name = "reportServlet", value = "/reports")
 public class ReportServlet extends HttpServlet {
 
-    private final StudentService studentService = new StudentServiceImpl();
-    private final MentorService mentorService = new MentorServiceImpl();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        MentorService mentorService = new MentorServiceImpl();
+        StudentService studentService = new StudentServiceImpl();
         String student_name = getParam(req, "student_name");
         String student_surname = getParam(req, "student_surname");
         String task_title = getParam(req, "task_title");
         String course_title = getParam(req, "course_title");
         Integer mark = Integer.parseInt(getParam(req, "mark"));
         String feedback = getParam(req, "feedback");
+        List<MarkReportDto> reportsOfStudent = null;
         try {
             mentorService.rateAndFeedbackStudentTask(student_name, student_surname, task_title, course_title, mark, feedback);
+            reportsOfStudent = studentService.findReportsOfStudent(student_name, student_surname);
         } catch (SQLException e) {
             e.printStackTrace();
-        } req.getRequestDispatcher("report/viewStudentCourse.jsp").forward(req, resp);
+        }
+        req.setAttribute("allReports", reportsOfStudent);
+        req.getRequestDispatcher("report/reports.jsp").forward(req, resp);
     }
 
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        StudentService studentService = new StudentServiceImpl();
         String name = getParam(req, "name");
         String fio = getParam(req, "fio");
         List<MarkReportDto> reportsOfStudent = studentService.findReportsOfStudent(name, fio);

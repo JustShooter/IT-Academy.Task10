@@ -16,8 +16,23 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
+<form class="transparent" method="post" action="${pageContext.request.contextPath}/reportChange">
+    <div class="form-inner">
+        <h3>Изменить оценку</h3>
+        <p class="name">Имя студента</p><output>"${param.get("name")}"</output>
+        <p class="name">Фамилия студента</p><output>"${param.get("surname")}"</output>
+        <p class="name">Задание</p><output>"${param.get("task")}"</output>
+        <p class="name">Введите оценку</p><input type="text" name="mark">
+        <p class="name">Комментарий</p><input type="text" name="feedback">
+
+        <input type="submit" name="change" value="Изменить">
+        <input type="hidden" name="id" value="${param.get("id")}">
+        <input type="hidden" name="name" value="${param.get("name")}">
+        <input type="hidden" name="fio" value="${param.get("surname")}">
+    </div>
+</form>
 <%@include file="../menu.jsp" %>
-<form method="post" action="${pageContext.request.contextPath}/reportChange">
+<%--<form method="post" action="${pageContext.request.contextPath}/reportChange">
     <table>
         <tr>
             <td>Имя Студента</td>
@@ -46,7 +61,7 @@
         <input type="hidden" name="name" value="${param.get("name")}">
         <input type="hidden" name="fio" value="${param.get("surname")}">
     </table>
-</form>
+</form>--%>
 <%@include file="../footer.jsp" %>
 </body>
 </html>

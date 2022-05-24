@@ -19,11 +19,10 @@ import java.util.Optional;
 @WebServlet(name = "reportCreateServlet", value = "/reportCreate")
 public class ReportCreateServlet extends HttpServlet {
 
-    private final StudentService studentService = new StudentServiceImpl();
-
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        StudentService studentService = new StudentServiceImpl();
         String course_title = getParam(req, "course_title");
         List<TaskDto> tasksOfCourse = studentService.findTasksOfCourseMy(course_title);
         req.setAttribute("student_surname", getParam(req, "student_surname"));
@@ -36,6 +35,7 @@ public class ReportCreateServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        StudentService studentService = new StudentServiceImpl();
         String student_name = getParam(req, "name");
         String student_surname = getParam(req, "fio");
         List<CourseDto> coursesOfStudent = studentService.findCourseOfStudentMy(student_name, student_surname);
