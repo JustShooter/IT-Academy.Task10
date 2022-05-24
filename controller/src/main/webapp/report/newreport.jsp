@@ -1,4 +1,6 @@
-<%@page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,16 +10,21 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
-<form class="transparent">
+<form class="transparent" method="get" action="${pageContext.request.contextPath}/reports">
     <div class="form-inner">
         <h3>Оценить студента</h3>
-        <p class="name">Введите оценку</p><input type="text">
-        <p class="name">Комментарий</p><input type="text">
-        <p class="name">Имя студента</p><input type="text">
-        <p class="name">Фамилия студента</p><input type="text">
-        <p class="name">Задача</p><input type="text">
+        <p class="name">Имя студента</p><output>"${param.get("student_name")}"</output>
+        <p class="name">Фамилия студента</p><output>"${param.get("student_surname")}"</output>
+        <p class="name">Курс</p><output>"${param.get("course_title")}"</output>
+        <p class="name">Задание</p><output>"${param.get("task_title")}"</output>
+        <p class="name">Введите оценку</p><input type="text" name="mark">
+        <p class="name">Комментарий</p><input type="text" name="feedback">
 
         <input type="submit" value="Добавить">
+        <input type="hidden" name="student_name" value="${param.get("student_name")}">
+        <input type="hidden" name="student_surname" value="${param.get("student_surname")}">
+        <input type="hidden" name="course_title" value="${param.get("course_title")}">
+        <input type="hidden" name="task_title" value="${param.get("task_title")}">
     </div>
 </form>
 <%@include file="../footer.jsp" %>

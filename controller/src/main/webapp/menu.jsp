@@ -24,8 +24,8 @@
     </li>
     <li><a>Успеваемость</a>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/reports">Журнал оценок</a></li>
-            <li><a href="${pageContext.request.contextPath}/report/newreport.jsp">Оценить студента</a></li>
+            <li><a href="${pageContext.request.contextPath}/report/viewReport.jsp">Журнал оценок</a></li>
+            <li><a href="${pageContext.request.contextPath}/report/viewStudentCourse.jsp">Оценить студента</a></li>
         </ul>
     </li>
 </ul>
