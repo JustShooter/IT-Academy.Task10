@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body onpageshow="success()">
-<%@include file="/menu.jsp" %>
+<%@include file="/menu.jsp"%>
 <script type="text/javascript">
     function success() {
         var var1 = "${UpdateSuccessMsg}";
@@ -33,24 +33,27 @@
         <th>Id</th>
         <th>Имя</th>
         <th>Фамилия</th>
-        <th>Курсы</th>
-        <th>Изменить</th>
-        <th>Удалить</th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
     <c:forEach items="${allMentors}" var="mentor">
         <tr>
             <td><c:out value="${mentor.getId()}"/></td>
             <td><c:out value="${mentor.getName()}"/></td>
             <td><c:out value="${mentor.getSurname()}"/></td>
-            <td><a href="mentors?method=viewcourse&mentor_id=${mentor.getId()}">Курсы</a></td>
+            <td><a href="${pageContext.request.contextPath}/mentors?method=viewcourse&mentor_id=${mentor.getId()}">Курсы</a></td>
             <td>
-                <a href="${pageContext.request.contextPath}/mentor/edit.jsp?edit_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Изменить</a>
+                <a href="${pageContext.request.contextPath}/mentor/mentorData.jsp?method=edit&edit_id=${mentor.getId()}&name=${mentor.getName()}&surname=${mentor.getSurname()}">Изменить</a>
             </td>
-            <td><a href="mentor/deleteMentor.jsp?delete_id=${mentor.getId()}">Удалить</a></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/mentors?method=delete&delete_id=${mentor.getId()}" onclick="return confirm('Вы уверены?')">Удалить</a>
+            </td>
         </tr>
     </c:forEach>
-
 </table>
+<a href="${pageContext.request.contextPath}/mentor/mentorData.jsp?method=add"
+   style="text-align: center; border-radius: 20px; width: 60%; margin: auto; margin-top: inherit;">Добавить</a>
 <%@include file="/footer.jsp" %>
 </body>
 </html>

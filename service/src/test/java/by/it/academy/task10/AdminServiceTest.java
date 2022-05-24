@@ -8,6 +8,7 @@ import by.it.academy.task10.dao.interfaces.CourseDao;
 import by.it.academy.task10.dao.interfaces.MentorDao;
 import by.it.academy.task10.dao.interfaces.StudentDao;
 import by.it.academy.task10.dao.interfaces.UserDao;
+import by.it.academy.task10.dto.CourseDto;
 import by.it.academy.task10.entity.Course;
 import by.it.academy.task10.entity.Mentor;
 import by.it.academy.task10.entity.Student;
@@ -161,12 +162,10 @@ public class AdminServiceTest {
 
         List<Course> allCourses = courseDao.findAll();
 
-        List<Course> getCourseList = adminService.getAllCourses();
+        List<CourseDto> getCourseList = adminService.getAllCourses();
 
         Assert.assertNotNull(allCourses);
         Assert.assertNotNull(getCourseList);
-
-        Assert.assertEquals(getCourseList, allCourses);
 
         Assert.assertEquals(getCourseList
                 .get(0).getTitle(), allCourses.get(0).getTitle());

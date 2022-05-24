@@ -7,6 +7,6 @@ public class CourseMapper {
 
     public static CourseDto mapFrom(Course course) {
         return new CourseDto(course.getId(),
-                course.getTitle(), course.getMentor().getId());
+                course.getTitle(), (course.getMentor() != null) ? course.getMentor().getId() : null);
     }
 }

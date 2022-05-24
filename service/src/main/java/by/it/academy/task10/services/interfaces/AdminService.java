@@ -36,15 +36,17 @@ public interface AdminService {
 
     void addStudentToCourse(String name, String surname, String title) throws SQLException;
 
-    List<Course> getAllCourses();
+    List<CourseDto> getAllCourses();
 
     List<MentorDto> getAllMentors();
 
-    Boolean changeMentorRecord(Integer id, String name, String surname) throws SQLException;
+    Boolean changeMentorRecord(MentorDto mentorDto) throws SQLException;
 
     MentorDto findMentorById(Integer id) throws SQLException;
 
     List<MarkReportDto> getAllReports();
 
     List<TaskDto> getAllTasks();
+
+    boolean addNewMentor(MentorDto mentorDto) throws SQLException;
 }
